@@ -14,17 +14,7 @@ public class MuzeiMiyazakiService extends RemoteMuzeiArtSource {
 
     private static final String TAG = "MuzeiMiyazakiService";
     private static final String SOURCE_NAME = "MuzeiMiyazakiArtSource";
-    private static final String BASE_URL = "https://0cb23c22f059f72d8263a1f91d908328e0865e2e.googledrive.com/host/0B3idlWv4TifLckRUZmhydDZkREU/";
-    private static final String[] FILES = {
-            "01%20-%20bYKUtAV.jpg", "09%20-%20OVlKiK7.png", "17%20-%20CliUfqX.jpg", "25%20-%20pYHoTtp.jpg", "33%20-%20Mly98OD.jpg", "41%20-%204OTXXx5.jpg", "49%20-%20vWSioof.jpg", "57%20-%205Jz8lse.jpg", "65%20-%20fF4PYMn.jpg", "73%20-%20qEalfZp.jpg",
-            "02%20-%205WVktYO.jpg", "10%20-%20KzUPWxF.jpg", "18%20-%20N6tlFJc.jpg", "26%20-%20rC7mw31.jpg", "34%20-%20NK4ZyuA.jpg", "42%20-%2009EwMmq.jpg", "50%20-%20OLwHF9J.jpg", "58%20-%20ApzUMsW.jpg", "66%20-%20LsUvp5g.jpg",
-            "03%20-%20ZLFpbxm.jpg", "11%20-%20wCqGzTU.png", "19%20-%20g5Q1NCa.jpg", "27%20-%20i1Lv4CY.jpg", "35%20-%20BB1YAfb.jpg", "43%20-%20xXpKKpU.jpg", "51%20-%20NTN0jVS.jpg", "59%20-%20GXg3FUs.jpg", "67%20-%20vQE6pwk.jpg",
-            "04%20-%20dyXbuVK.jpg", "12%20-%20Eh79054.jpg", "20%20-%201ZmrLjK.jpg", "28%20-%20hZZRnoR.jpg", "36%20-%20CpSFYwY.jpg", "44%20-%20bNsIXto.jpg", "52%20-%20yIFFaRt.jpg", "60%20-%20cwWI4AG.jpg", "68%20-%20oL3ETVL.jpg",
-            "05%20-%20zEYl5Cp.jpg", "13%20-%20klGyEd6.png", "21%20-%20tLH51iW.jpg", "29%20-%202hvl6qP.jpg", "37%20-%20DC4L7zI.jpg", "45%20-%20aodIouB.jpg", "53%20-%20sfb9PbR.jpg", "61%20-%20O1R2quB.jpg", "69%20-%20JiACR7N.jpg",
-            "06%20-%200byg3HK.jpg", "14%20-%20omNQMoZ.jpg", "22%20-%20QQLEwzF.jpg", "30%20-%209VopmwA.jpg", "38%20-%20nxuSi9d.jpg", "46%20-%203wWtNXJ.jpg", "54%20-%20d3ca61p.jpg", "62%20-%20fnjieyM.jpg", "70%20-%208GloK0A.jpg",
-            "07%20-%20O8pQHDY.jpg", "15%20-%20RmPrDRL.jpg", "23%20-%20w9fNuEX.jpg", "31%20-%20CMTYkgj.jpg", "39%20-%20MEej3vQ.jpg", "47%20-%20530ygYW.jpg", "55%20-%20XU3xQNh.jpg", "63%20-%20f9mYEvO.jpg", "71%20-%20Zq7dJpw.jpg",
-            "08%20-%20yZxeGfq.png", "16%20-%20Vg3Ruyl.jpg", "24%20-%20mUOUz2Y.jpg", "32%20-%20v9mnBmP.jpg", "40%20-%20OKI3GDJ.jpg", "48%20-%20TieinE6.jpg", "56%20-%20yMSLTPj.jpg", "64%20-%20FzrnX0c.jpg", "72%20-%20XcjkS7n.jpg"
-    };
+    private static final String BASE_URL = "https://i.imgur.com/";
     private static final int ROTATE_TIME_MILLIS = 24 * 60 * 60 * 1000; // rotate every 3 hours
 
     public MuzeiMiyazakiService() {
@@ -47,8 +37,83 @@ public class MuzeiMiyazakiService extends RemoteMuzeiArtSource {
                 .imageUri(Uri.parse(BASE_URL + current))
                 .token(current)
                 .build());
-
+                
         scheduleUpdate(System.currentTimeMillis() + ROTATE_TIME_MILLIS);
     }
 
+    private static final String[] FILES = {
+            "bYKUtAV.jpg",
+            "5WVktYO.jpg",
+            "ZLFpbxm.jpg",
+            "dyXbuVK.jpg",
+            "zEYl5Cp.jpg",
+            "0byg3HK.jpg",
+            "O8pQHDY.jpg",
+            "yZxeGfq.png",
+            "OVlKiK7.png",
+            "KzUPWxF.jpg",
+            "wCqGzTU.png",
+            "Eh79054.jpg",
+            "klGyEd6.png",
+            "omNQMoZ.jpg",
+            "RmPrDRL.jpg",
+            "Vg3Ruyl.jpg",
+            "CliUfqX.jpg",
+            "N6tlFJc.jpg",
+            "g5Q1NCa.jpg",
+            "1ZmrLjK.jpg",
+            "tLH51iW.jpg",
+            "QQLEwzF.jpg",
+            "w9fNuEX.jpg",
+            "mUOUz2Y.jpg",
+            "pYHoTtp.jpg",
+            "rC7mw31.jpg",
+            "i1Lv4CY.jpg",
+            "hZZRnoR.jpg",
+            "2hvl6qP.jpg",
+            "9VopmwA.jpg",
+            "CMTYkgj.jpg",
+            "v9mnBmP.jpg",
+            "Mly98OD.jpg",
+            "NK4ZyuA.jpg",
+            "BB1YAfb.jpg",
+            "CpSFYwY.jpg",
+            "DC4L7zI.jpg",
+            "nxuSi9d.jpg",
+            "MEej3vQ.jpg",
+            "OKI3GDJ.jpg",
+            "4OTXXx5.jpg",
+            "09EwMmq.jpg",
+            "xXpKKpU.jpg",
+            "bNsIXto.jpg",
+            "aodIouB.jpg",
+            "3wWtNXJ.jpg",
+            "530ygYW.jpg",
+            "TieinE6.jpg",
+            "vWSioof.jpg",
+            "OLwHF9J.jpg",
+            "NTN0jVS.jpg",
+            "yIFFaRt.jpg",
+            "sfb9PbR.jpg",
+            "d3ca61p.jpg",
+            "XU3xQNh.jpg",
+            "yMSLTPj.jpg",
+            "5Jz8lse.jpg",
+            "ApzUMsW.jpg",
+            "GXg3FUs.jpg",
+            "cwWI4AG.jpg",
+            "O1R2quB.jpg",
+            "fnjieyM.jpg",
+            "f9mYEvO.jpg",
+            "FzrnX0c.jpg",
+            "fF4PYMn.jpg",
+            "LsUvp5g.jpg",
+            "vQE6pwk.jpg",
+            "oL3ETVL.jpg",
+            "JiACR7N.jpg",
+            "8GloK0A.jpg",
+            "Zq7dJpw.jpg",
+            "XcjkS7n.jpg",
+            "qEalfZp.jpg"
+    };
 }
