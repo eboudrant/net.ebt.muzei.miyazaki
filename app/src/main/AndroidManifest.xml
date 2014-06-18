@@ -1,0 +1,25 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.ebt.muzei.miyazaki">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Required by RemoteMuzeiArtSource -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application android:allowBackup="true"
+        android:label="@string/app_name"
+        android:icon="@drawable/icon">
+
+        <service android:name=".service.MuzeiMiyazakiService"
+            android:label="@string/source_name"
+            android:description="@string/source_description"
+            android:icon="@drawable/icon_mono">
+            <intent-filter>
+                <action android:name="com.google.android.apps.muzei.api.MuzeiArtSource" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>
