@@ -1,7 +1,7 @@
 Studio Ghibli for Muzei
 ======================
 
-![alt text](https://github.com/eboudrant/net.ebt.muzei.miyazaki/raw/develop/docs/screenshots/app.jpg "Cards in action")
+![alt text](https://github.com/eboudrant/net.ebt.muzei.miyazaki/raw/develop/docs/screenshots/app.jpg "Screenshots")
 
 Enjoy The Timeless Beauty Of Studio Ghibli's Movies as your Muzei exhibit.
 An extension for Muzei Wallpaper Android 
