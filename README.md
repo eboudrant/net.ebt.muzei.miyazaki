@@ -1,5 +1,5 @@
-Studio Ghibli for Muzei
-======================
+Muzei Ghibli
+============
 
 ![alt text](https://raw.githubusercontent.com/eboudrant/net.ebt.muzei.miyazaki/master/docs/screenshots/app.jpg "Screenshots")
 
@@ -8,4 +8,4 @@ An extension for Muzei Wallpaper Android
 
 **[Install on Google Play](https://play.google.com/store/apps/details?id=net.ebt.muzei.miyazaki)**
 
-*Based on  [http://api.muzei.co](http://api.muzei.co)*
+*Require [Muzei Wallpaper app](http://get.muzei.co)*
