@@ -1,11 +1,14 @@
 package net.ebt.muzei.miyazaki.service;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 
 import com.google.android.apps.muzei.api.Artwork;
 import com.google.android.apps.muzei.api.RemoteMuzeiArtSource;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by eboudrant on 6/17/14.
@@ -14,6 +17,7 @@ public class MuzeiMiyazakiService extends RemoteMuzeiArtSource {
 
     private static final String TAG = "MuzeiMiyazakiService";
     private static final String SOURCE_NAME = "MuzeiMiyazakiArtSource";
+    private static final String CURRENT_PREF_NAME = "MuzeiMiyazakiArtSource.current";
     private static final String BASE_URL = "https://i.imgur.com/";
     private static final int ROTATE_TIME_MILLIS = 24 * 60 * 60 * 1000; // rotate every 3 hours
 
@@ -30,15 +34,68 @@ public class MuzeiMiyazakiService extends RemoteMuzeiArtSource {
     @Override
     protected void onTryUpdate(int reason) throws RetryException {
 
-        Random random = new Random();
-        int index = random.nextInt(FILES.length-1);
-        String current = FILES[index];
+        String current = FILES[getNextArtworkIndex()];
         publishArtwork(new Artwork.Builder()
                 .imageUri(Uri.parse(BASE_URL + current))
                 .token(current)
                 .build());
-                
+
         scheduleUpdate(System.currentTimeMillis() + ROTATE_TIME_MILLIS);
+
+    }
+
+    /**
+     * Current sequence is stored in a preferences
+     * If there is no value then regenerate a sequence (shuffle)
+     * @return indexToShow
+     */
+    private int getNextArtworkIndex() {
+        int indexToShow = 0;
+
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences(CURRENT_PREF_NAME, Context.MODE_PRIVATE);
+        String sequence = prefs.getString(CURRENT_PREF_NAME, null);
+
+        if(sequence == null) {
+
+            // Reshuffle the array
+            ArrayList<Integer> shuffled = new ArrayList<Integer>(FILES.length);
+            for(int i=0; i<FILES.length; i++)
+                shuffled.add(i);
+            Collections.shuffle(shuffled);
+
+            // Build show the first and build the next sequence
+            StringBuilder builder = new StringBuilder();
+            for(int i=0; i<FILES.length; i++) {
+                if(i == 0) {
+                    indexToShow = shuffled.get(i);
+                } else {
+                    builder.append(shuffled.get(i));
+                    builder.append(" ");
+                }
+            }
+            sequence = builder.toString().trim();
+
+        } else {
+
+            if(sequence.contains(" ")) {
+                // Remove and show the first from the sequence
+                indexToShow = Integer.parseInt(sequence.substring(0, sequence.indexOf(" ")));
+                sequence = sequence.substring(sequence.indexOf(" ") + 1);
+            } else {
+                // Show the latest and reset the sequence
+                indexToShow = Integer.parseInt(sequence);
+                sequence = null;
+            }
+
+        }
+
+        if(sequence != null) {
+            prefs.edit().putString(CURRENT_PREF_NAME, sequence).commit();
+        } else {
+            prefs.edit().remove(CURRENT_PREF_NAME).commit();
+        }
+
+        return indexToShow;
     }
 
     private static final String[] FILES = {
@@ -116,4 +173,5 @@ public class MuzeiMiyazakiService extends RemoteMuzeiArtSource {
             "XcjkS7n.jpg",
             "qEalfZp.jpg"
     };
+
 }
