@@ -8,4 +8,4 @@ An extension for Muzei Wallpaper Android
 
 **[Install on Google Play](https://play.google.com/store/apps/details?id=net.ebt.muzei.miyazaki)**
 
-*Require [Muzei Wallpaper app](http://get.muzei.co)*
+Require [Muzei Wallpaper app](http://get.muzei.co)
