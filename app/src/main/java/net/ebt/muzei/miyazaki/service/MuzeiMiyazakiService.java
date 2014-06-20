@@ -19,7 +19,7 @@ public class MuzeiMiyazakiService extends RemoteMuzeiArtSource {
     private static final String SOURCE_NAME = "MuzeiMiyazakiArtSource";
     private static final String CURRENT_PREF_NAME = "MuzeiMiyazakiArtSource.current";
     private static final String BASE_URL = "https://i.imgur.com/";
-    private static final int ROTATE_TIME_MILLIS = 24 * 60 * 60 * 1000; // rotate every 3 hours
+    private static final int ROTATE_TIME_MILLIS = 24 * 60 * 60 * 1000; // rotate every day
 
     public MuzeiMiyazakiService() {
         super(SOURCE_NAME);
