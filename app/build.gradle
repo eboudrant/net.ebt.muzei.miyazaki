@@ -8,8 +8,8 @@ android {
         applicationId "net.ebt.muzei.miyazaki"
         minSdkVersion 17
         targetSdkVersion 19
-        versionCode 5
-        versionName "1.0.0"
+        versionCode 6
+        versionName "1.0.1"
     }
 
 
@@ -21,6 +21,6 @@ android {
 }
 
 dependencies {
-    compile "com.google.android.apps.muzei:muzei-api:+"
+    compile 'com.android.support:support-v4:19.1.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
