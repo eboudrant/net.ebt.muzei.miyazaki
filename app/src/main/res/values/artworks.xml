@@ -2,9 +2,10 @@
 
     <!--
 
-        Feel free to contribute to this file with a pull request if you know the movie.
-        Each line represent a picture from Muzei Ghibli.
-        Same order that this gallery : https://imgur.com/a/rX8ws/all
+        If you know the movie's name for some artwork...
+        ...feel free to contribute to this file (with a pull request or email to appswitch.app at gmail.com)
+        
+        Each line represent a picture from Muzei Ghibli with the same order than this gallery : https://imgur.com/a/rX8ws/all
 
         Ex: <string name="arwork_XXXXXXX">MOVIE_NAME</string>
 
