@@ -3,9 +3,12 @@ net.ebt.muzei.miyazaki
 
 ![alt text](https://raw.githubusercontent.com/eboudrant/net.ebt.muzei.miyazaki/master/docs/screenshots/app.jpg "Screenshots")
 
-An extension for Muzei Wallpaper Android plugged on https://imgur.com/a/rX8ws
+An extension for Muzei Live Wallpaper (Android). It display Ghibli studio artworks from Imgur and Tumblr.
+A Gooogle App Engine serve the latest artworks captions.
 
-**[Install on Google Play](https://play.google.com/store/apps/details?id=net.ebt.muzei.miyazaki)**
+* ```app``` : Android project
+* ```server``` : Google App Engine project
+* ```docs``` : icons, screenshots...
 
 Require [Muzei Wallpaper app](http://get.muzei.co)
 
