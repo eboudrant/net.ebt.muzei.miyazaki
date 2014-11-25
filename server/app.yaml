@@ -1,4 +1,4 @@
-application: muzei-ghibli
+application: YOUR_GAE_APPLICATION_ID
 version: 104
 runtime: go
 api_version: go1
