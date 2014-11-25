@@ -1,0 +1,178 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<!--
+  `<post-service>` provides an API for a fake service --
+  _unquote_, the read-only social networking service!
+
+  Provides a very simple API: `posts` returns the list of posts.
+  `setFavorite` pretends to persist a user's favorite choice.
+
+  @element post-service
+  @demo
+  @homepage http://www.polymer-project.org/docs/start/tutorial.html
+-->
+
+<!--
+  An array of post objects, with the following format:
+
+  <table border="0">
+    <tr>
+      <td><code>uid</code></td>
+      <td>Number</td>
+      <td>Unique ID for this post.</td>
+    </tr>
+     <tr>
+      <td><code>username</code></td>
+      <td>String</td>
+      <td>Poster's username.</td>
+    </tr>
+    <tr>
+      <td><code>avatar</code></td>
+      <td>String</td>
+      <td>URL for the user's avatar.</td>
+    </tr>
+    <tr>
+      <td><code>text</code></td>
+      <td>String</td>
+      <td>Post text.</td>
+    </tr>
+    <tr>
+      <td><code>favorite</code></td>
+      <td>Boolean</td>
+      <td>True if the current user favorited this post.</td>
+    </tr>
+  </table>
+
+  @attribute posts
+  @type Array
+  @default []
+-->
+<polymer-element name="artwork-service" attributes="artworks,show">
+  <template>
+    <style>
+    :host {
+      display: none;
+    }
+    </style>
+    <core-ajax id="ajax"
+      auto
+      url="/artworks"
+      params='{"color": "{{show}}", "extra": "false"}'
+      on-core-response="{{artworksLoaded}}"
+      handleAs="json">
+    </core-ajax>
+  </template>
+  <script>
+  Polymer('artwork-service', {
+    created: function() {
+      Global.artworkService = this
+      this.clear()
+    },
+    clear : function() {
+        this.allArtworks = [];
+        this.artworks = [];
+        this.page = 20
+        this.last = this.page
+    },
+    loadMore : function() {
+        if(this.last < this.allArtworks.length) {
+            ga('send', 'event', 'web', 'loadmore', this.last);
+            this.artworks = this.allArtworks.slice(0, this.last)
+            this.last += this.page;
+            this.last = Math.min(this.last, this.allArtworks.length-1)
+            Global.artworks = {}
+            for(i=0; i<this.artworks.length; i++) {
+                artwork = this.artworks[i]
+                if(!artwork.caption || artwork.caption == "" || artwork.caption == "What's the movie ?") {
+                  artwork.caption = "What's the movie ?"
+                } else {
+                  artwork.caption = artwork.subtitle.substring(0, artwork.subtitle.indexOf("-")).trim()
+                }
+                Global.artworks[artwork.aid] = artwork
+                if(Global.user) artwork.debug = artwork.aid + " " + artwork.width + "x" + artwork.height
+            }
+            if(Global.user) {
+                $.ajax({
+                    url: "/captions?gid=" + encodeURIComponent(Global.user.gid),
+                    context: document.body,
+                    success: function(captionsPayload) {
+                        captions = JSON.parse(captionsPayload)
+                        Global.captionMap = {}
+                        for(i=0; i<captions.length; i++) {
+                            Global.captionMap[captions[i].aid] = captions[i];
+                            if(Global.artworks && Global.artworks[captions[i].aid]) {
+                                Global.artworks[captions[i].aid].myCaption = captions[i].caption
+                                var card = document.querySelector('post-list').shadowRoot.querySelector('post-card[data-aid="'+captions[i].aid+'"]')
+                                if(card) {
+                                    var dropdown = card.querySelector('paper-dropdown-menu');
+                                    dropdown.label = captions[i].caption
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+        }
+    },
+    artworksLoaded: function() {
+        // Make a copy of the loaded data
+        this.allArtworks = this.$.ajax.response.slice(0);
+        this.artworks = this.allArtworks.slice(0, this.last);
+        this.last += this.page;
+        for(i=0; i<this.artworks.length; i++) {
+            if(!this.artworks[i].caption || this.artworks[i].caption == "") {
+              this.artworks[i].caption = "What's the movie ?"
+            } else {
+              this.artworks[i].caption = this.artworks[i].subtitle.substring(0, this.artworks[i].subtitle.indexOf("-")).trim()
+            }
+            if(Global.captionMap && Global.captionMap[this.artworks[i].aid]) {
+                this.artworks[i].caption = Global.captionMap[this.artworks[i].aid].caption;
+            }
+        }
+        Global.artworks = {}
+        for(i=0; i<this.artworks.length; i++) {
+            artwork = this.artworks[i]
+            Global.artworks[artwork.aid] = artwork
+            if(Global.user) artwork.debug = artwork.aid + " " + artwork.width + "x" + artwork.height
+        }
+        document.querySelector('paper-button').style.opacity = 1
+        document.querySelector('paper-button').innerHTML = "load more"
+        if(Global.user) {
+            $.ajax({
+                url: "/captions?gid=" + encodeURIComponent(Global.user.gid),
+                context: document.body,
+                success: function(captionsPayload) {
+                    captions = JSON.parse(captionsPayload)
+                    Global.captionMap = {}
+                    for(i=0; i<captions.length; i++) {
+                        Global.captionMap[captions[i].aid] = captions[i];
+                        if(Global.artworks && Global.artworks[captions[i].aid]) {
+                            Global.artworks[captions[i].aid].myCaption = captions[i].caption
+                            var card = document.querySelector('post-list').shadowRoot.querySelector('post-card[data-aid="'+captions[i].aid+'"]')
+                            if(card) {
+                                var dropdown = card.querySelector('paper-dropdown-menu');
+                                dropdown.label = captions[i].caption
+                            }
+                        }
+                    }
+                }
+            });
+         }
+      },
+    /**
+     * Update the service with the current favorite value.
+     * (Two-way data binding updates the favorite value
+     * stored locally.) If this was a real service, this
+     * method would do something useful.
+     *
+     * @method setFavorite
+     * @param uid {Number} Unique ID for post.
+     * @param isFavorite {Boolean} True if the user marked this post as a favorite.
+     */
+    setFavorite: function(uid, isFavorite) {
+      // no service backend, just log the change
+    }
+  });
+  </script>
+</polymer-element>
