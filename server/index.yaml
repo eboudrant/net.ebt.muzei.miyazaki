@@ -1,0 +1,280 @@
+indexes:
+
+- kind: caption
+  properties:
+  - name: Aid
+  - name: Gid
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: asc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Updated
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Silver
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Grey
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Black
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Red
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Maroon
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Orange
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Yellow
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Olive
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Lime
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Green
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Aqua
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Teal
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Blue
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Navy
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Fuchsia
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: Purple
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Free
+  - name: Hidden
+  - name: White
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Silver
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Grey
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Black
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Red
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Maroon
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Orange
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Yellow
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Olive
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Lime
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Green
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Aqua
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Teal
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Blue
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Navy
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Fuchsia
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: Purple
+    direction: desc
+
+- kind: artwork
+  properties:
+  - name: Hidden
+  - name: Updated
+    direction: desc
+  - name: White
+    direction: desc

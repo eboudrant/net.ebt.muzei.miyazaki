@@ -1,0 +1,73 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/google-apis/google-plusone-api.html">
+<link rel="import" href="bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="bower_components/paper-item/paper-item.html">
+<link rel="import" href="bower_components/core-icon-button/core-icon-button.html">
+<link rel="import" href="artwork-service/artwork-service.html">
+<link rel="import" href="post-card.html">
+
+<polymer-element name="post-list" attributes="show">
+    <template>
+        <style>
+            :host {
+            display: inline;
+            width: 100%;
+            }
+            post-card {
+            margin-bottom: 30px;
+            }
+            paper-dropdown-menu {
+            margin-left: auto;
+            margin-right: auto;
+            }
+        </style>
+
+        <artwork-service id="service" artworks="{{artworks}}" show="{{show}}">
+        </artwork-service>
+
+        <div horizontal layout wrap center-justified center>
+            <template repeat="{{artwork in artworks}}">
+                <post-card data-aid="{{artwork.aid}}">
+                    <paper-shadow z="1"></paper-shadow>
+                    <img src="{{artwork.url_small}}" data-imgaid="{{artwork.aid}}" onclick="download('{{artwork.url}}', '{{artwork.caption}}', '{{artwork.aid}}')">
+                    <paper-dropdown-menu valueattr="caption" label="{{artwork.caption}}" data-dropdownaid="{{artwork.aid}}">
+                        <template repeat="{{titles}}">
+                            <paper-item label="{{title}}"></paper-item>
+                        </template>
+                    </paper-dropdown-menu>
+                </post-card>
+            </template>
+        </div>
+    </template>
+    <script>
+Polymer({
+    titles: [
+        {"title":"Castle in the Sky","lang":"en"},
+        {"title":"From Up on Poppy Hill","lang":"en"},
+        {"title":"Grave of the Fireflies","lang":"en"},
+        {"title":"Howl's Moving Castle","lang":"en"},
+        {"title":"Iblard Jikan","lang":"en"},
+        {"title":"Kiki's Delivery","lang":"en"},
+        {"title":"My Neighbor Totoro","lang":"en"},
+        {"title":"My Neighbors the Yamadas","lang":"en"},
+        {"title":"Nausicaä of the Valley of the Wind","lang":"en"},
+        {"title":"Ocean Waves","lang":"en"},
+        {"title":"Only Yesterday","lang":"en"},
+        {"title":"Porco Rosso","lang":"en"},
+        {"title":"Pom Poko","lang":"en"},
+        {"title":"Ponyo","lang":"en"},
+        {"title":"Princess Mononoke","lang":"en"},
+        {"title":"Spirited Away","lang":"en"},
+        {"title":"Tales from Earthsea","lang":"en"},
+        {"title":"The Cat Returns","lang":"en"},
+        {"title":"The Secret World of Arrietty","lang":"en"},
+        {"title":"The Tale of Princess Kaguya","lang":"en"},
+        {"title":"The Wind Rises","lang":"en"},
+        {"title":"When Marnie Was There","lang":"en"},
+        {"title":"Whisper of the Heart","lang":"en"}
+    ]
+});
+    </script>
+
+</polymer-element>

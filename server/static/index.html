@@ -1,0 +1,628 @@
+<!doctype html>
+<html>
+
+
+<head>
+
+<title>Muzei Ghibli</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#3a794f">
+
+<script src="bower_components/platform/platform.js">
+</script>
+
+<script>
+    var Global = {}
+</script>
+
+<script async src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+<link rel="import" href="bower_components/font-roboto/roboto.html">
+<link rel="import" href="bower_components/core-drawer-panel/core-drawer-panel.html">
+<link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
+<link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="post-list.html">
+<link rel="import" href="bower_components/google-signin/google-signin.html">
+<link rel="import" href="bower_components/core-icons/core-icons.html">
+<link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="bower_components/paper-dialog/paper-dialog-transition.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="bower_components/paper-shadow/paper-shadow.css">
+<link rel="import" href="bower_components/core-icons/core-icons.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
+<link rel="import" href="bower_components/core-menu/core-menu.html">
+<link rel="import" href="bower_components/core-input/core-input.html">
+
+<style shim-shadowdom>
+html,body {
+height: 100%;
+margin: 0;
+background-color: #E5E5E5;
+font-family: 'Alegreya Sans';
+}
+core-header-panel {
+height: 100%;
+overflow: auto;
+-webkit-overflow-scrolling: touch;
+}
+
+
+#page_title {
+font-family: Alegreya;
+font-weight: 900;
+font-style: italic;
+text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+font-size: 20px;
+}
+
+paper-button {
+color: white;
+margin: 20px;
+background-color: #3a794f;
+}
+
+core-scroll-header-panel {
+position: absolute;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+}
+
+/* background for toolbar when it is at its full size */
+core-scroll-header-panel::shadow #headerBg {
+background-image: url(images/background.jpg);
+}
+
+/* background for toolbar when it is condensed */
+core-scroll-header-panel::shadow #condensedHeaderBg {
+background-color: #3a794f;
+}
+
+core-toolbar {
+background: #3a794f;
+fill: #3a794f;
+background-color: transparent;
+color: white;
+font-weight: 900;
+text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+font-size: 26px;
+}
+.title {
+font-family: Alegreya;
+font-weight: 900;
+font-style: italic;
+text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+font-size: 25px;
+}
+paper-ripple {
+color: white;
+}
+#tabs {
+width: 100%;
+margin-left: 60px;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+text-transform: uppercase;
+}
+[drawer] {
+background-color: #3a794f;
+border-right: 1px solid #ccc;
+}
+.content {
+width: 100%;
+}
+@media (min-width: 481px) {
+#tabs {
+width: 100%;
+}
+.content {
+width: 100%;
+}
+}
+/* Button */
+.button {
+display: inline-block;
+position: relative;
+width: 120px;
+height: 32px;
+line-height: 32px;
+border-radius: 2px;
+font-size: 0.9em;
+background-color: #fff;
+color: #646464;
+}
+
+.button > paper-ripple {
+border-radius: 2px;
+overflow: hidden;
+}
+
+.button.narrow {
+width: 60px;
+}
+
+.button.grey {
+background-color: #eee;
+}
+
+.button.blue {
+background-color: #4285f4;
+color: #fff;
+}
+
+.button.green {
+background-color: #0f9d58;
+color: #fff;
+}
+
+.button.raised {
+transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+transition-delay: 0.2s;
+box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.button.raised:active {
+box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+transition-delay: 0s;
+}
+
+/* Icon Button */
+.icon-button {
+position: relative;
+display: inline-block;
+width: 56px;
+height: 56px;
+}
+
+.icon-button > core-icon {
+margin: 16px;
+transition: -webkit-transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icon-button:hover > core-icon {
+-webkit-transform: scale(1.2);
+transform: scale(1.2);
+}
+
+.icon-button > paper-ripple {
+overflow: hidden;
+color: #646464;
+}
+
+.icon-button.red > core-icon::shadow path {
+fill: #db4437;
+}
+
+.icon-button.red > paper-ripple {
+color: #db4437;
+}
+
+.icon-button.blue > core-icon::shadow path {
+fill: #4285f4;
+}
+
+.icon-button.blue > paper-ripple {
+color: #4285f4;
+}
+
+paper-dialog {
+width: 100%;
+height: 100%;
+background-color: black;
+padding: 0px;
+}
+
+p {
+margin-bottom: 0;
+}
+
+paper-dialog paper-button {
+font-weight: bold;
+}
+
+paper-button[autofocus] {
+color: #4285f4;
+position: absolute;
+bottom: 10px;
+right: 10px;
+}
+#dialog_scrollable {
+overflow:scroll;
+width:100%;
+valign:center;
+}
+#dialog_artwork {
+display: block;
+background-size: 100%;
+background-repeat: no-repeat;
+margin:auto;
+}
+#dialog_content {
+padding: 0px;
+width: 100%;
+height:100%;
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+background-color: black;
+}
+.caption {
+margin-top: 20px;
+margin-bottom: 20px;
+padding-left: 20px;
+padding-right: 20px;
+text-align: left;
+background-color: black;
+color: white;
+}
+.caption_first {
+margin-top: 30px;
+margin-bottom: 20px;
+padding-left: 20px;
+padding-right: 20px;
+text-align: left;
+background-color: black;
+color: white;
+}
+.counter {
+margin-left: 10px;
+margin-right: 10px;
+text-align: center;
+font-weight: bold;
+}
+.caption_title {
+margin-left: 20px;
+}
+.dialog_toolbar {
+background: black;
+color: white;
+}
+.dialog_title {
+font-size: 25px;
+color: white;
+text-shadow: 0 2px 4px rgba(210, 214, 212, 0.4);
+}
+core-icon-button {
+color:black;
+}
+core-input {
+margin: 1em;
+width: 100%;
+color: white;
+}
+#comments {
+background-color: #55FFFFFF;
+text: black;
+width:100%;
+}
+</style>
+
+</head>
+
+<body unresolved>
+
+<core-drawer-panel responsiveWidth="10220px" rightDrawer>
+
+    <core-scroll-header-panel drawer condenses>
+
+
+    </core-scroll-header-panel>
+
+    <core-scroll-header-panel main condenses>
+
+        <core-toolbar class="tall">
+
+            <img onclick="document.querySelector('core-drawer-panel').togglePanel();"
+                 src="images/icon.png"
+                 width="40px" height="40px"/>
+
+            <span id="page_title">Muzei Ghibli</span>
+
+            <paper-tabs id="tabs" selected="all" class="bottom indent" style="max-width: 600px;"
+                        self-end>
+                <paper-tab name="all">All</paper-tab>
+                <paper-tab name="black">&nbsp;Black&nbsp;</paper-tab>
+                <!--paper-tab name="grey">&nbsp;Grey&nbsp;</paper-tab-->
+                <!--paper-tab name="silver">&nbsp;Silver&nbsp;</paper-tab-->
+                <paper-tab name="maroon">&nbsp;Red&nbsp;</paper-tab>
+                <!--paper-tab name="olive">&nbsp;Olive&nbsp;</paper-tab-->
+                <paper-tab name="teal">&nbsp;Aqua&nbsp;</paper-tab>
+                <paper-tab name="green">&nbsp;Green&nbsp;</paper-tab>
+                <paper-tab name="navy">&nbsp;Navy&nbsp;</paper-tab>
+                <!--paper-tab name="purple">&nbsp;Purple&nbsp;</paper-tab-->
+            </paper-tabs>
+
+            <div flex></div>
+
+            <div id="badge">
+                <a href="https://github.com/eboudrant/net.ebt.muzei.miyazaki">
+                    <img alt="Fork on github"
+                         src="/images/github.png" style="height: 34px;padding-top: 8px;"/>
+                </a>
+            </div>
+            <google-signin height="short" width="standard" labelSignin="Login" labelSignout="Logout" appPackageName="net.ebt.muzei.miyazaki"
+                    clientId="YOUR_CLIENT_ID"
+                    scopes="profile" data-apppackagename="net.ebt.muzei.miyazaki"></google-signin>
+
+        </core-toolbar>
+
+        <div class="content" layout vertical center>
+            <post-list show="all"></post-list>
+            <paper-button onclick="javascript:loadMore()" raised="true" layout vertical center>loading...</paper-button>
+        </div>
+
+        <a href="https://plus.google.com/108463328900120019768" rel="publisher"
+           style="display:none;">Google+</a>
+    </core-scroll-header-panel>
+</core-drawer-panel>
+
+<paper-dialog heading="" transition="paper-dialog-transition-center" backdrop="true">
+    <core-toolbar class="dialog_toolbar">
+
+        <span id="title" class="dialog_title" flex>The Castle In The Sky</span>
+
+        <paper-icon-button id="shareicon" icon="close" affirmative
+                           autofocus></paper-icon-button>
+
+    </core-toolbar>
+
+    <div id="dialog_content" layout vertical center>
+
+        <div id="dialog_scrollable">
+        <div id="dialog_artwork">
+        </div>
+        </div>
+        <img id="fake_img" style="display:none;">
+        </img>
+
+        <div id="comments" layout horizontal>
+            <core-input id="caption_input" placeholder="Suggest a caption..."></core-input>
+            <core-icon-button icon="send" style="color:white;" onclick="submitCaption()"></core-icon-button>
+        </div>
+
+    </div>
+</paper-dialog>
+
+<script>
+
+    function getQueryVariable(variable)
+    {
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+    }
+
+    Global.a = getQueryVariable("a")
+    // custom transformation: scale header's title
+
+    var titleStyle = document.getElementById('page_title').style;
+    var titleSignin = document.querySelector('google-signin').style;
+    var titleBadge = document.getElementById('badge').style;
+    addEventListener('core-header-transform', function(e) {
+      var d = e.detail;
+      var m = d.height - d.condensedHeight;
+      var scale = Math.max(0, (m - d.y) / (m / 1)  );
+      titleStyle.opacity = scale;
+      if(!Global.a) {
+          titleBadge.opacity = scale;
+          titleSignin.opacity = scale;
+          if(scale < 0.1) {
+            titleSignin.display = "none"
+            titleBadge.display = "none"
+          } else {
+            titleSignin.display = ""
+            titleBadge.display = ""
+          }
+      }
+    });
+
+    function toggleDialog(transition, artworkId) {
+
+        if(Global.user.role !== 'admin') {
+            return
+        }
+
+        Global.artwork = Global.artworks[artworkId];
+        var dialog = document.querySelector('paper-dialog[transition=' + transition + ']');
+        var titleDiv = document.getElementById('title')
+        title.innerHTML = Global.artwork.caption
+        if(Global.user.role === 'admin') {
+            title.innerHTML = "[" + Global.artwork.aid + " " + Global.artwork.width + "x" + Global.artwork.height + "] " + title.innerHTML
+        }
+        var imgDiv = document.getElementById('dialog_artwork')
+        imgDiv.style['background-image'] = "" //'url('+Global.artwork.url_small+')'
+        imgDiv.style.height = (document.body.offsetHeight * 0.7) + "px"
+        imgDiv.style.width = (document.body.offsetHeight * 0.7 * (Global.artwork.width / Global.artwork.height)) + "px"
+        dialog.toggle();
+
+        setTimeout(function() {
+            var imgDiv = document.getElementById('dialog_artwork')
+            imgDiv.style['background-image'] = 'url('+ Global.artwork.url +')'
+            /*
+            var fake_img = document.getElementById('fake_img')
+            $('fake_img').ready(function() {
+                var imgDiv = document.getElementById('dialog_artwork')
+                imgDiv.style['background-image'] = 'url('+ Global.artwork.url +')'
+            });
+            fake_img.src = Global.artwork.url
+            */
+
+        }, 500);
+    }
+
+    function submitCaption() {
+        var input = document.getElementById('caption_input')
+    }
+
+    var list = document.querySelector('post-list');
+    var tabs = document.querySelector('paper-tabs');
+    tabs.addEventListener('core-select', function() {
+      setTimeout(function() {
+            if(Global.init) {
+                Global.artworkService.clear()
+            }
+            Global.init = true
+            list.show = tabs.selected
+        }, 500)
+        document.querySelector('paper-button').innerHTML = "loading..."
+    });
+</script>
+<script>
+    document.querySelector('paper-button').innerHTML = "loading..."
+    if(Global.a) {
+        document.querySelector('google-signin').style.display = "none"
+        document.getElementById('badge').style.display = "none"
+    } else {
+        document.addEventListener("google-signin-success", function(e) {
+        // Access the GAPI instance passed back from authorization
+        var gapi = e.detail.gapi;
+
+        // Load V1 of the G+ API
+        gapi.client.load('plus', 'v1', function() {
+            // To retreive profile information for a user, use the
+            // people.get API method. For profile info for the currently
+            // authorized user, use the userId value of me.
+            var request = gapi.client.plus.people.get({
+                'userId': 'me'
+            });
+            var did = ""
+            if(Global && Global.user && Global.user.did) {
+                did = "&did=" + encodeURIComponent(Global.user.did)
+            }
+            request.execute(function(resp) {
+                // Some useful profile information is now available
+                // via the returned object (resp). For example, we
+                // can discover the displayName, skills and so on.
+                $.ajax({
+                    url: "/oauth2callback?gid=" + encodeURIComponent(resp.id) + "&name=" + encodeURIComponent(resp.displayName) + "&lang=" + encodeURIComponent(resp.language) + did,
+                    context: document.body,
+                    success: function(user) {
+                        Global.user = JSON.parse(user)
+                    }
+                });
+
+                $.ajax({
+                    url: "/captions?gid=" + encodeURIComponent(resp.id),
+                    context: document.body,
+                    success: function(captionsPayload) {
+                        captions = JSON.parse(captionsPayload)
+                        Global.captionMap = {}
+                        for(i=0; i<captions.length; i++) {
+                            Global.captionMap[captions[i].aid] = captions[i];
+                            if(Global.artworks && Global.artworks[captions[i].aid]) {
+                                Global.artworks[captions[i].aid].myCaption = captions[i].caption
+                                var card = document.querySelector('post-list').shadowRoot.querySelector('post-card[data-aid="'+captions[i].aid+'"]')
+                                if(card) {
+                                    var dropdown = card.querySelector('paper-dropdown-menu');
+                                    dropdown.label = captions[i].caption
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    });
+
+    document.addEventListener("google-signed-out", function() {
+    });
+
+    document.addEventListener("google-signout-attempted", function() {
+    });
+    }
+</script>
+<script>
+      var cb = function() {
+        var l = document.createElement('link'); l.rel = 'stylesheet';
+        l.href = 'https://fonts.googleapis.com/css?family=Alegreya:400italic,900italic|Alegreya+Sans:300';
+        var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
+      };
+      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+          webkitRequestAnimationFrame || msRequestAnimationFrame;
+      if (raf) raf(cb);
+      else window.addEventListener('load', cb);
+
+
+</script>
+
+<script>
+    function loadMore() {
+        if(document.querySelector('paper-button').innerHTML = "load more") {
+            document.querySelector('paper-button').innerHTML = "loading..."
+            setTimeout(function(){
+                setTimeout(function(){
+                    Global.artworkService.loadMore()
+                    document.querySelector('paper-button').innerHTML = "load more"
+                }, 500)
+            }, 500)
+        }
+    }
+
+    if(Global.a) {
+        Global.user = {}
+        Global.user.gid = Global.a
+        $.ajax({
+                    url: "/doauth2callback?did=" + encodeURIComponent(Global.a) + "&name=" + encodeURIComponent(Global.a) + "&lang=" + encodeURIComponent("en"),
+                    context: document.body,
+                    success: function(user) {
+                        Global.user = JSON.parse(user)
+                    }
+                });
+
+                $.ajax({
+                    url: "/captions?gid=" + encodeURIComponent(Global.a),
+                    context: document.body,
+                    success: function(captionsPayload) {
+                        captions = JSON.parse(captionsPayload)
+                        Global.captionMap = {}
+                        for(i=0; i<captions.length; i++) {
+                            Global.captionMap[captions[i].aid] = captions[i];
+                            if(Global.artworks && Global.artworks[captions[i].aid]) {
+                                Global.artworks[captions[i].aid].myCaption = captions[i].caption
+                                var card = document.querySelector('post-list').shadowRoot.querySelector('post-card[data-aid="'+captions[i].aid+'"]')
+                                if(card) {
+                                    var dropdown = card.querySelector('paper-dropdown-menu');
+                                    dropdown.label = captions[i].caption
+                                }
+                            }
+                        }
+                    }
+                });
+    }
+
+    function download(url, name, id) {
+      if(!Global.a) {
+          if(Global.user) {
+              ext = url.split('.').pop();
+              if(name || name == "") {
+                name = id
+              }
+              name += "." + ext
+              var a = $("<a>").attr("href", "/download?gid=" + encodeURIComponent(Global.user.gid) + "&aid=" + encodeURIComponent(id)).attr("download", name).appendTo("body");
+              a[0].click();
+              a.remove();
+          } else {
+            alert("To download pictures please sign-in with Google+, the button is at the top of the page")
+            return
+          }
+      }
+    }
+</script>
+</body>
+
+</html>

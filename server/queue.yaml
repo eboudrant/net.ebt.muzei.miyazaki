@@ -1,0 +1,9 @@
+# Set the total storage limit for all queues to 120MB
+total_storage_limit: 120M
+queue:
+- name: process
+  rate: 35/s
+  max_concurrent_requests: 1
+- name: computevotes
+  rate: 35/s
+  max_concurrent_requests: 1
