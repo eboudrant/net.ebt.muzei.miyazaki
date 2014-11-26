@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#22000000"
+              android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/muzei_icon"
+            android:padding="10dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/icon"
+            android:layout_gravity="left"
+            android:contentDescription="@string/app_name"
+            android:background="?android:selectableItemBackgroundBorderless"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/seeall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:text="@string/seeall"
+            android:textAppearance="@style/TextAppearance.Muzei.Medium"
+            android:background="?android:selectableItemBackgroundBorderless"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/muzei_label"
+        android:textAppearance="@style/TextAppearance.Muzei.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="50sp"
+        android:layout_marginBottom="20dp"
+        android:maxLines="5"/>
+
+    <include
+        layout="@layout/colors"
+        android:id="@+id/colors"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:id="@+id/muzei_config_label"
+            android:textAppearance="@style/TextAppearance.Muzei.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"/>
+
+        <LinearLayout
+            android:id="@+id/muzei_config"
+            android:textAppearance="@style/TextAppearance.Muzei.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <SeekBar
+                android:id="@+id/muzei_interval"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"/>
+
+            <CheckBox
+                android:id="@+id/muzei_wifi"
+                android:textAppearance="@style/TextAppearance.Muzei.Medium"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@android:color/white"
+                android:text="@string/wifi"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

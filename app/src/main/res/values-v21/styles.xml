@@ -1,0 +1,27 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:selectableItemBackground">@drawable/white_selectable_item_background
+        </item>
+        <item name="android:textAppearanceMedium">@style/TextAppearance.Muzei.Medium</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">#22000000</item>
+        <item name="android:navigationBarColor">#22000000</item>
+        <item name="android:colorPrimary">#3a794f</item>
+        <item name="android:colorAccent">#fff</item>
+    </style>
+
+    <style name="TextAppearance.Muzei.Medium" parent="android:TextAppearance.Material.Medium">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:shadowColor">#dd000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+
+</resources>

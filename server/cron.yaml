@@ -1,0 +1,4 @@
+cron:
+- description: computecaptions
+  url: /computecaptions
+  schedule: every 12 hours synchronized

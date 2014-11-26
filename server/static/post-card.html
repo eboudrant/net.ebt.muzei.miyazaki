@@ -1,0 +1,84 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/core-icon-button/core-icon-button.html">
+<link rel="import" href="bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="bower_components/paper-item/paper-item.html">
+
+<polymer-element name="post-card" on-core-select="{{selectAction}}">
+    <template>
+        <style>
+            :host {
+            display: inline;
+            position: relative;
+            background-color: white;
+            padding: 10px;
+            width: 100%;
+            font-size: 1.2rem;
+            font-weight: 300;
+            width: 400px;
+            margin: 30px;
+            }
+
+            .card-header {
+            margin-bottom: 0px;
+            }
+
+            polyfill-next-selector { content: '.card-header h2'; }
+            .card-header ::content h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 300;
+            }
+
+            polyfill-next-selector { content: '.card-header img'; }
+            .card-header ::content img {
+            width: 100%;
+            height: auto;
+            margin: 10px;
+            }
+        </style>
+
+        <div class="card-header" layout horizontal center>
+            <content select="img"></content>
+        </div>
+
+        <div layout horizontal center>
+            <content select="paper-dropdown-menu"></content>
+        </div>
+
+        <content></content>
+
+    </template>
+    <script>
+Polymer({
+    publish: {
+        clear: {
+            value: false,
+            reflect: true
+        }
+    },
+    clearTapped: function(event, detail, sender) {
+        this.hidden = !this.hidden;
+        this.fire('clear-tap');
+    },
+    selectAction: function(e, details) {
+        if(!Global.user) {
+            alert("Please sign-in with Google+, the button is at the top of the page")
+            ga('send', 'event', 'web', 'caption', 'signin');
+            return
+        }
+        ga('send', 'event', 'web', 'caption', 'select');
+        var caption = details.item['label_']
+        var aid = e.currentTarget.querySelector('img').dataset.imgaid;
+        var gid = Global.user.gid
+        $.ajax({
+            url: "/submit_caption?gid=" + encodeURIComponent(gid) + "&aid=" + encodeURIComponent(aid) + "&lang=en&caption=" + encodeURIComponent(caption),
+            context: document.body,
+            success: function(user) {
+            }
+        });
+      }
+});
+
+
+    </script>
+</polymer-element>
