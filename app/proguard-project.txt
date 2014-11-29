@@ -30,6 +30,7 @@
 -keep class com.squareup.** { *;}
 -dontnote com.squareup.**
 -dontwarn com.squareup.**
+-dontwarn okio.**
 
 -keep class net.ebt.muzei.miyazaki.model.** { *;}
 -dontnote net.ebt.muzei.miyazaki.model.**
