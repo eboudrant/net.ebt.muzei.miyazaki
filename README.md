@@ -12,3 +12,5 @@ Build android app : ```./gradlew assembleDebug```
 
 Signed APK is available on [f-droid.org](https://f-droid.org/repository/browse/?fdfilter=muzei&fdid=net.ebt.muzei.miyazaki)
  (require [Muzei Wallpaper app](http://get.muzei.co))
+ 
+This app should not be published the app on Google Play Store.
