@@ -135,6 +135,7 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
     wifi.setChecked(settings.getBoolean(MUZEI_WIFI, true));
     label.setVisibility(View.GONE);
 
+    findViewById(R.id.seeall).setVisibility(View.GONE);
     findViewById(R.id.seeall).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
