@@ -2,7 +2,7 @@ Muzei Ghibli
 ============
 
 An extension for Muzei Live Wallpaper (Android). It display Ghibli studio artworks from Imgur and Tumblr.
-A Google App Engine application serve the latest artworks captions. All the wallpaper are presented on http://muzeighibli.net
+A Google App Engine application serve the latest artworks captions. All the wallpaper were presented on ```http://muzeighibli.net```
 
 * ```app``` : Android project
 * ```server``` : Google App Engine project (golang, polymer)
