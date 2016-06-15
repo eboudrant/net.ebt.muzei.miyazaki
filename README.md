@@ -10,7 +10,7 @@ A Google App Engine application serve the latest artworks captions. All the wall
 
 Build android app : ```./gradlew assembleDebug```
 
-Signed APK is available on [f-droid.org](https://f-droid.org/repository/browse/?fdfilter=muzei&fdid=net.ebt.muzei.miyazaki)
+Signed APK is available on [here](https://github.com/eboudrant/net.ebt.muzei.miyazaki/releases)
  (require [Muzei Wallpaper app](http://get.muzei.co))
  
 This app should not be published the app on Google Play Store.
