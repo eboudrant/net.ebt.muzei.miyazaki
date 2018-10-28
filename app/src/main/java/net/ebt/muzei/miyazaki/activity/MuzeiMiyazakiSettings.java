@@ -83,10 +83,10 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
     int interval = settings.getInt(MUZEI_INTERVAL, DEFAULT_INTERVAL);
 
     final View colors = findViewById(R.id.colors);
-    final SeekBar seekBar = (SeekBar) findViewById(R.id.muzei_interval);
-    final CheckBox wifi = (CheckBox) findViewById(R.id.muzei_wifi);
-    final TextView configLabel = (TextView) findViewById(R.id.muzei_config_label);
-    final TextView label = (TextView) findViewById(R.id.muzei_label);
+    final SeekBar seekBar = findViewById(R.id.muzei_interval);
+    final CheckBox wifi = findViewById(R.id.muzei_wifi);
+    final TextView configLabel = findViewById(R.id.muzei_config_label);
+    final TextView label = findViewById(R.id.muzei_label);
     configLabel.setText("Refresh every " + Utils.formatDuration(INTERVALS.get(interval)));
 
     seekBar.setMax(INTERVALS.size() - 1);
@@ -115,7 +115,7 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
 
         SharedPreferences.Editor editor = settings.edit();
         editor.putInt(MUZEI_INTERVAL, seekBar.getProgress());
-        editor.commit();
+        editor.apply();
 
         Intent intent = new Intent(MuzeiMiyazakiService.ACTION_RESCHEDULE);
         intent.setClass(seekBar.getContext(), MuzeiMiyazakiService.class);
@@ -128,7 +128,7 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(MUZEI_WIFI, isChecked);
-        editor.commit();
+        editor.apply();
       }
     });
 
@@ -175,49 +175,49 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
 
     if (view.getId() == R.id.black) {
       if ("black".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).commit();
+        settings.edit().remove(MUZEI_COLOR).apply();
         remove = true;
-      } else settings.edit().putString(MUZEI_COLOR, "black").commit();
+      } else settings.edit().putString(MUZEI_COLOR, "black").apply();
     } else if (view.getId() == R.id.grey) {
       if ("grey".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).commit();
+        settings.edit().remove(MUZEI_COLOR).apply();
         remove = true;
-      } else settings.edit().putString(MUZEI_COLOR, "grey").commit();
+      } else settings.edit().putString(MUZEI_COLOR, "grey").apply();
     } else if (view.getId() == R.id.silver) {
       if ("silver".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).commit();
+        settings.edit().remove(MUZEI_COLOR).apply();
         remove = true;
-      } else settings.edit().putString(MUZEI_COLOR, "silver").commit();
+      } else settings.edit().putString(MUZEI_COLOR, "silver").apply();
     } else if (view.getId() == R.id.maroon) {
       if ("maroon".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).commit();
+        settings.edit().remove(MUZEI_COLOR).apply();
         remove = true;
-      } else settings.edit().putString(MUZEI_COLOR, "maroon").commit();
+      } else settings.edit().putString(MUZEI_COLOR, "maroon").apply();
     } else if (view.getId() == R.id.olive) {
       if ("olive".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).commit();
+        settings.edit().remove(MUZEI_COLOR).apply();
         remove = true;
-      } else settings.edit().putString(MUZEI_COLOR, "olive").commit();
+      } else settings.edit().putString(MUZEI_COLOR, "olive").apply();
     } else if (view.getId() == R.id.green) {
       if ("green".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).commit();
+        settings.edit().remove(MUZEI_COLOR).apply();
         remove = true;
-      } else settings.edit().putString(MUZEI_COLOR, "green").commit();
+      } else settings.edit().putString(MUZEI_COLOR, "green").apply();
     } else if (view.getId() == R.id.teal) {
       if ("teal".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).commit();
+        settings.edit().remove(MUZEI_COLOR).apply();
         remove = true;
-      } else settings.edit().putString(MUZEI_COLOR, "teal").commit();
+      } else settings.edit().putString(MUZEI_COLOR, "teal").apply();
     } else if (view.getId() == R.id.navy) {
       if ("navy".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).commit();
+        settings.edit().remove(MUZEI_COLOR).apply();
         remove = true;
-      } else settings.edit().putString(MUZEI_COLOR, "navy").commit();
+      } else settings.edit().putString(MUZEI_COLOR, "navy").apply();
     } else if (view.getId() == R.id.purple) {
       if ("purple".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).commit();
+        settings.edit().remove(MUZEI_COLOR).apply();
         remove = true;
-      } else settings.edit().putString(MUZEI_COLOR, "purple").commit();
+      } else settings.edit().putString(MUZEI_COLOR, "purple").apply();
     }
 
     if (!remove) {
@@ -280,14 +280,14 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
     final SharedPreferences settings = getApplicationContext().getSharedPreferences(CURRENT_PREF_NAME, Context.MODE_PRIVATE);
     String frame = settings.getString(MUZEI_FRAME, null);
     if (view.getId() == R.id.frame_ultra_wide) {
-      if ("ultra_wide".equals(frame)) settings.edit().remove(MUZEI_FRAME).commit();
-      else settings.edit().putString(MUZEI_FRAME, "ultra_wide").commit();
+      if ("ultra_wide".equals(frame)) settings.edit().remove(MUZEI_FRAME).apply();
+      else settings.edit().putString(MUZEI_FRAME, "ultra_wide").apply();
     } else if (view.getId() == R.id.frame_portrait) {
-      if ("portrait".equals(frame)) settings.edit().remove(MUZEI_FRAME).commit();
-      else settings.edit().putString(MUZEI_FRAME, "portrait").commit();
+      if ("portrait".equals(frame)) settings.edit().remove(MUZEI_FRAME).apply();
+      else settings.edit().putString(MUZEI_FRAME, "portrait").apply();
     } else if (view.getId() == R.id.frame_wide) {
-      if ("wide".equals(frame)) settings.edit().remove(MUZEI_FRAME).commit();
-      else settings.edit().putString(MUZEI_FRAME, "wide").commit();
+      if ("wide".equals(frame)) settings.edit().remove(MUZEI_FRAME).apply();
+      else settings.edit().putString(MUZEI_FRAME, "wide").apply();
     }
     Intent intent = new Intent(ACTION_RELOAD);
     intent.setClass(this, MuzeiMiyazakiService.class);

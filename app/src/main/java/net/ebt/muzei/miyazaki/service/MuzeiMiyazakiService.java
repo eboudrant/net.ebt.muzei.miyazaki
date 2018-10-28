@@ -81,7 +81,7 @@ public class MuzeiMiyazakiService extends RemoteMuzeiArtSource {
 
     final SharedPreferences settings = getApplicationContext().getSharedPreferences(CURRENT_PREF_NAME, Context.MODE_PRIVATE);
 
-    settings.edit().putBoolean("onboarding", true).commit();
+    settings.edit().putBoolean("onboarding", true).apply();
 
     if (reason == UPDATE_REASON_SCHEDULED && abortIfNecessary()) {
       throw new RetryException();
@@ -206,9 +206,9 @@ public class MuzeiMiyazakiService extends RemoteMuzeiArtSource {
     }
 
     if (sequence != null) {
-      prefs.edit().putString(CURRENT_PREF_NAME, sequence).commit();
+      prefs.edit().putString(CURRENT_PREF_NAME, sequence).apply();
     } else {
-      prefs.edit().remove(CURRENT_PREF_NAME).commit();
+      prefs.edit().remove(CURRENT_PREF_NAME).apply();
     }
 
     Log.i(TAG, "Show index " + indexToShow + " in [0-" + MuzeiMiyazakiApplication.getInstance().getArtworks().size() + "]");

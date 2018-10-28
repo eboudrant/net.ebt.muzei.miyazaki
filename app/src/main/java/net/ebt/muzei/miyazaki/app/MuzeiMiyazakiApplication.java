@@ -179,7 +179,7 @@ public class MuzeiMiyazakiApplication extends Application {
                 cached.delete();
               }
               tmp.renameTo(cached);
-              getSharedPreferences("App", MODE_PRIVATE).edit().putLong("loadLoaded", System.currentTimeMillis()).commit();
+              getSharedPreferences("App", MODE_PRIVATE).edit().putLong("loadLoaded", System.currentTimeMillis()).apply();
               if (callback != null) {
                 ThUtils.getMainHandler().post(callback);
               }
@@ -201,13 +201,13 @@ public class MuzeiMiyazakiApplication extends Application {
 
   public void removePro() {
     if (!BuildConfig.DEBUG) {
-      getSharedPreferences("App", MODE_PRIVATE).edit().remove("premium");
+      getSharedPreferences("App", MODE_PRIVATE).edit().remove("premium").apply();
       File cached = new File(getCacheDir() + "/.tmp");
       if (cached.exists()) {
         cached.delete();
       }
       SharedPreferences prefs = getApplicationContext().getSharedPreferences(CURRENT_PREF_NAME, Context.MODE_PRIVATE);
-      prefs.edit().remove(CURRENT_PREF_NAME).commit();
+      prefs.edit().remove(CURRENT_PREF_NAME).apply();
     }
   }
 

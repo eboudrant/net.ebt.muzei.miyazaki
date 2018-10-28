@@ -1,21 +1,22 @@
 buildscript {
     repositories {
-        mavenCentral()
+        google()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:3.2.1'
     }
 }
 
 apply plugin: 'com.android.application'
 
 repositories {
-    mavenCentral()
+    google()
+    jcenter()
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 28
 
     defaultConfig {
         applicationId "net.ebt.muzei.miyazaki"
@@ -31,9 +32,9 @@ android {
 
     signingConfigs {
         release {
-            def Properties localProps = new Properties()
+            Properties localProps = new Properties()
             localProps.load(new FileInputStream(file('../local.properties')))
-            def Properties keyProps = new Properties()
+            Properties keyProps = new Properties()
             if (localProps['keystore.props.file'] != null) {
                 keyProps.load(new FileInputStream(file(localProps['keystore.props.file'])))
             }
@@ -72,10 +73,9 @@ android {
 }
 
 dependencies {
-    compile 'org.apache.commons:commons-lang3:3.0'
-    compile 'com.google.code.gson:gson:2.2.4'
-    compile 'com.android.support:support-v4:21.0.0'
-    compile 'com.squareup.okhttp:okhttp:2.1.0'
-    compile 'com.google.android.apps.muzei:muzei-api:+'
-
+    implementation 'org.apache.commons:commons-lang3:3.4'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.android.support:support-fragment:28.0.0'
+    implementation 'com.squareup.okhttp:okhttp:2.1.0'
+    implementation 'com.google.android.apps.muzei:muzei-api:3.0.0'
 }
