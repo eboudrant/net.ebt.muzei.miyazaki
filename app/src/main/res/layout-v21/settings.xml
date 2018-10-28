@@ -16,7 +16,7 @@
             android:padding="10dp"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/icon"
+            android:src="@mipmap/ic_launcher"
             android:layout_gravity="left"
             android:contentDescription="@string/app_name"
             android:background="?android:selectableItemBackgroundBorderless"/>
