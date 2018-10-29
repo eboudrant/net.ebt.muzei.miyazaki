@@ -1,6 +1,7 @@
-package net.ebt.muzei.miyazaki
+package net.ebt.muzei.miyazaki.load
 
 import net.ebt.muzei.miyazaki.app.MuzeiMiyazakiApplication
+import net.ebt.muzei.miyazaki.Artwork
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit

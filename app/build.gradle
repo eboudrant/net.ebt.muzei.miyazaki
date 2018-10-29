@@ -12,6 +12,7 @@ buildscript {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 repositories {
     google()
@@ -27,6 +28,13 @@ android {
         targetSdkVersion 23
         versionCode 123
         versionName "2.2"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
 
         def ghibliAuthorityValue = "net.ebt.muzei.miyazaki.ghibli"
         manifestPlaceholders = [ghibliAuthority: ghibliAuthorityValue]
@@ -87,6 +95,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'androidx.core:core-ktx:0.3'
     implementation 'com.android.support:support-fragment:28.0.0'
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
     implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha10'
     implementation 'com.squareup.okhttp:okhttp:2.1.0'
     implementation 'com.google.android.apps.muzei:muzei-api:3.0.0'

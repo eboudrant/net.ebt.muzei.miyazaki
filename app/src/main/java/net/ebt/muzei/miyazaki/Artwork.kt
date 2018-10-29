@@ -1,28 +1,32 @@
 package net.ebt.muzei.miyazaki
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+
+@Entity
 data class Artwork(
+        @PrimaryKey
         val aid: String,
         val hash: String,
         val url: String,
         val width: Int,
         val height: Int,
-        val ratio: Float,
         val caption: String,
         val subtitle: String,
-        val silver: Float,
-        val grey: Float,
-        val black: Float,
-        val maroon: Float,
-        val orange: Float,
-        val yellow: Float,
-        val olive: Float,
-        val lime: Float,
-        val green: Float,
-        val aqua: Float,
-        val teal: Float,
-        val blue: Float,
-        val navy: Float,
-        val fuchsia: Float,
-        val purple: Float,
-        val white: Float
+        val silver: Int,
+        val grey: Int,
+        val black: Int,
+        val maroon: Int,
+        val orange: Int,
+        val yellow: Int,
+        val olive: Int,
+        val lime: Int,
+        val green: Int,
+        val aqua: Int,
+        val teal: Int,
+        val blue: Int,
+        val navy: Int,
+        val fuchsia: Int,
+        val purple: Int,
+        val white: Int
 )

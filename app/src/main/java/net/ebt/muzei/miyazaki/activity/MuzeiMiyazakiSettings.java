@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import net.ebt.muzei.miyazaki.BuildConfig;
 import net.ebt.muzei.miyazaki.R;
+import net.ebt.muzei.miyazaki.load.UpdateMuzeiWorker;
 import net.ebt.muzei.miyazaki.app.MuzeiMiyazakiApplication;
 import net.ebt.muzei.miyazaki.model.Artwork;
 import net.ebt.muzei.miyazaki.service.MuzeiMiyazakiService;
@@ -227,6 +228,7 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
     }
 
     updateMatches(settings);
+    UpdateMuzeiWorker.Companion.enqueueUpdate();
 
     if (!remove) {
       view.setAlpha(1.0f);
