@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import static net.ebt.muzei.miyazaki.Constants.CURRENT_PREF_NAME;
 
@@ -46,6 +48,7 @@ public class MuzeiMiyazakiApplication extends Application {
   private ArrayList<Artwork> m_artworksAsList = new ArrayList<Artwork>();
   private OkHttpClient mClient;
   private int m_percentWithCaption;
+  private String uuid;
 
   public MuzeiMiyazakiApplication() {
     s_instance = this;
@@ -54,6 +57,13 @@ public class MuzeiMiyazakiApplication extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
+    final SharedPreferences sharedPreferences = getSharedPreferences("App", MODE_PRIVATE);
+    if (!sharedPreferences.contains("uuid")) {
+        sharedPreferences.edit()
+                .putString("uuid", UUID.randomUUID().toString())
+                .apply();
+    }
+    uuid = sharedPreferences.getString("uuid", "");
 
     MuzeiMiyazakiApplication.getInstance().loadDefinitivePayload(null);
     File cached = new File(getCacheDir() + "/.tmp");
@@ -143,6 +153,11 @@ public class MuzeiMiyazakiApplication extends Application {
 
   public static MuzeiMiyazakiApplication getInstance() {
     return s_instance;
+  }
+
+  @NonNull
+  public String getUuid() {
+    return uuid;
   }
 
   public List<Artwork> getArtworks() {

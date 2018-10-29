@@ -40,7 +40,22 @@
             <meta-data
                 android:name="color"
                 android:value="#90cc7a"/>
+            <meta-data
+                android:name="replacement"
+                android:value="${ghibliAuthority}"/>
         </service>
+
+        <provider
+            android:name=".GhibliArtProvider"
+            android:authorities="${ghibliAuthority}"
+            android:label="@string/source_name"
+            android:description="@string/source_description"
+            android:exported="true"
+            android:permission="com.google.android.apps.muzei.api.ACCESS_PROVIDER">
+            <intent-filter>
+                <action android:name="com.google.android.apps.muzei.api.MuzeiArtProvider"/>
+            </intent-filter>
+        </provider>
 
     </application>
 
