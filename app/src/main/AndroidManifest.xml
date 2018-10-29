@@ -55,6 +55,10 @@
             <intent-filter>
                 <action android:name="com.google.android.apps.muzei.api.MuzeiArtProvider"/>
             </intent-filter>
+
+            <meta-data
+                android:name="settingsActivity"
+                android:value="net.ebt.muzei.miyazaki.activity.MuzeiMiyazakiSettings"/>
         </provider>
 
     </application>
