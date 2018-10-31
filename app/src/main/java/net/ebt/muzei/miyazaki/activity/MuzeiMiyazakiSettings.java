@@ -1,13 +1,11 @@
 package net.ebt.muzei.miyazaki.activity;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,15 +18,12 @@ import net.ebt.muzei.miyazaki.app.MuzeiMiyazakiApplication;
 import net.ebt.muzei.miyazaki.load.UpdateMuzeiWorker;
 import net.ebt.muzei.miyazaki.model.Artwork;
 import net.ebt.muzei.miyazaki.service.MuzeiMiyazakiService;
-import net.ebt.muzei.miyazaki.util.UiUtils;
 
 import java.util.List;
-import java.util.logging.Level;
 
 import static net.ebt.muzei.miyazaki.Constants.ACTION_RELOAD;
 import static net.ebt.muzei.miyazaki.Constants.CURRENT_PREF_NAME;
 import static net.ebt.muzei.miyazaki.Constants.MUZEI_COLOR;
-import static net.ebt.muzei.miyazaki.Constants.MUZEI_FRAME;
 
 public class MuzeiMiyazakiSettings extends FragmentActivity {
 
@@ -157,7 +152,7 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
 
   private void updateMatches(SharedPreferences settings) {
 
-    String frame = settings.getString(MUZEI_FRAME, null);
+    String frame = null;
     String color = settings.getString(MUZEI_COLOR, null);
     int matches = 0;
     boolean ok;
@@ -167,16 +162,7 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
         ok = false;
         if (color == null || artwork.colors.get(color) > MuzeiMiyazakiApplication.getInstance().get(color))
           ok = true;
-        if (ok && frame != null) {
-          if ("portrait".equals(frame)) {
-            ok = artwork.ratio < 1.0f;
-          } else if ("ultra_wide".equals(frame)) {
-            ok = artwork.ratio > 3.0f;
-          } else if ("wide".equals(frame)) {
-            ok = artwork.ratio >= 1.0f && artwork.ratio <= 3.0f;
-          }
-        }
-        if (ok) matches++;
+          if (ok) matches++;
       }
 
       if (BuildConfig.DEBUG) {
@@ -196,25 +182,5 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
       if ("teal".equals(color)) findViewById(R.id.teal).setAlpha(1.0f);
       if ("green".equals(color)) findViewById(R.id.green).setAlpha(1.0f);
     }
-  }
-
-  public void onFrameLayout(View view) {
-    final SharedPreferences settings = getApplicationContext().getSharedPreferences(CURRENT_PREF_NAME, Context.MODE_PRIVATE);
-    String frame = settings.getString(MUZEI_FRAME, null);
-    if (view.getId() == R.id.frame_ultra_wide) {
-      if ("ultra_wide".equals(frame)) settings.edit().remove(MUZEI_FRAME).apply();
-      else settings.edit().putString(MUZEI_FRAME, "ultra_wide").apply();
-    } else if (view.getId() == R.id.frame_portrait) {
-      if ("portrait".equals(frame)) settings.edit().remove(MUZEI_FRAME).apply();
-      else settings.edit().putString(MUZEI_FRAME, "portrait").apply();
-    } else if (view.getId() == R.id.frame_wide) {
-      if ("wide".equals(frame)) settings.edit().remove(MUZEI_FRAME).apply();
-      else settings.edit().putString(MUZEI_FRAME, "wide").apply();
-    }
-    Intent intent = new Intent(ACTION_RELOAD);
-    intent.setClass(this, MuzeiMiyazakiService.class);
-    startService(intent);
-
-    updateMatches(settings);
   }
 }

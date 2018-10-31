@@ -24,7 +24,6 @@ import static net.ebt.muzei.miyazaki.Constants.CURRENT_PREF_NAME;
 import static net.ebt.muzei.miyazaki.Constants.DEFAULT_INTERVAL;
 import static net.ebt.muzei.miyazaki.Constants.INTERVALS;
 import static net.ebt.muzei.miyazaki.Constants.MUZEI_COLOR;
-import static net.ebt.muzei.miyazaki.Constants.MUZEI_FRAME;
 import static net.ebt.muzei.miyazaki.Constants.MUZEI_INTERVAL;
 import static net.ebt.muzei.miyazaki.Constants.MUZEI_WIFI;
 import static net.ebt.muzei.miyazaki.Constants.SOURCE_NAME;
@@ -87,22 +86,13 @@ public class MuzeiMiyazakiService extends RemoteMuzeiArtSource {
       throw new RetryException();
     }
 
-    String frame = settings.getString(MUZEI_FRAME, null);
+    String frame = null;
     String color = settings.getString(MUZEI_COLOR, null);
     net.ebt.muzei.miyazaki.model.Artwork artwork;
     boolean ok;
     do {
       artwork = MuzeiMiyazakiApplication.getInstance().getArtworks().get(getNextArtworkIndex());
       ok = color == null || artwork.colors.get(color) > MuzeiMiyazakiApplication.class.cast(getApplication()).get(color);
-      if (ok && frame != null) {
-        if ("portrait".equals(frame)) {
-          ok = artwork.ratio < 1.0f;
-        } else if ("ultra_wide".equals(frame)) {
-          ok = artwork.ratio > 3.0f;
-        } else if ("wide".equals(frame)) {
-          ok = artwork.ratio >= 1.0f && artwork.ratio <= 3.0f;
-        }
-      }
     } while (!ok);
 
     Log.i(TAG, "Publish " + artwork.url + " : " + artwork.caption);
