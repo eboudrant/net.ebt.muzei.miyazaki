@@ -18,7 +18,6 @@ import com.google.android.apps.muzei.api.provider.ProviderContract;
 
 import net.ebt.muzei.miyazaki.BuildConfig;
 import net.ebt.muzei.miyazaki.R;
-import net.ebt.muzei.miyazaki.app.MuzeiMiyazakiApplication;
 import net.ebt.muzei.miyazaki.load.UpdateMuzeiWorker;
 
 import static net.ebt.muzei.miyazaki.BuildConfig.GHIBLI_AUTHORITY;
@@ -50,7 +49,18 @@ public class MuzeiMiyazakiSettings extends FragmentActivity
   public void onLoadFinished(@NonNull final Loader<Cursor> loader, final Cursor data) {
     long count = data.getCount();
     if (BuildConfig.DEBUG) {
-      ((TextView) findViewById(R.id.matches)).setText("Using " + count + " artworks (" + MuzeiMiyazakiApplication.getInstance().getPercentWithCaption() + "%)");
+      int percentArtworkWithCaption = 0;
+      if (count > 0) {
+        while (data.moveToNext()) {
+          String caption = data.getString(data.getColumnIndex(ProviderContract.Artwork.BYLINE));
+          if (caption != null && !caption.isEmpty()) {
+            percentArtworkWithCaption++;
+          }
+        }
+        percentArtworkWithCaption *= 100;
+        percentArtworkWithCaption /= count;
+      }
+      ((TextView) findViewById(R.id.matches)).setText("Using " + count + " artworks (" + percentArtworkWithCaption + "%)");
     } else {
       ((TextView) findViewById(R.id.matches)).setText("Using " + count + " artworks");
     }
