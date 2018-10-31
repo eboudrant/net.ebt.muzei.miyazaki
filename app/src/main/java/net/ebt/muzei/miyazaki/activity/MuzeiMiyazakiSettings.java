@@ -1,16 +1,12 @@
 package net.ebt.muzei.miyazaki.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import net.ebt.muzei.miyazaki.BuildConfig;
 import net.ebt.muzei.miyazaki.R;
@@ -29,39 +25,7 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-
     super.onCreate(savedInstanceState);
-
-    final String muzeiPackageId = Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN ? "net.nurik.roman.muzei" : "net.nurik.roman.muzei.muik";
-    final SharedPreferences settings = getApplicationContext().getSharedPreferences(CURRENT_PREF_NAME, Context.MODE_PRIVATE);
-
-    if (getIntent() != null && getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_MAIN)) {
-      try {
-        Intent launchIntent = getPackageManager().getLaunchIntentForPackage(muzeiPackageId);
-        if (launchIntent != null) {
-
-          if (!settings.getBoolean("onboarding", false)) {
-            Toast.makeText(this, getResources().getString(R.string.setup_muzei), Toast.LENGTH_LONG).show();
-          }
-          launchIntent.addCategory(Intent.CATEGORY_DEFAULT);
-          launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-          startActivity(launchIntent);
-          finish();
-          return;
-
-        } else {
-          Toast.makeText(this, getResources().getString(R.string.install_muzei), Toast.LENGTH_LONG).show();
-          Intent intent = new Intent(Intent.ACTION_VIEW);
-          intent.setData(Uri.parse("market://details?id=" + muzeiPackageId));
-          startActivity(intent);
-          finish();
-          return;
-        }
-      } catch (Throwable e) {
-        // No playstore
-      }
-    }
-
     setContentView(R.layout.settings);
   }
 
