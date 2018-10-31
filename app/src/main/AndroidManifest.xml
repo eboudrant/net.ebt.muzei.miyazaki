@@ -13,7 +13,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".activity.MuzeiMiyazakiSettings"
+            android:name=".SettingsActivity"
             android:theme="@style/AppTheme"
             android:exported="true">
         </activity>
@@ -42,7 +42,7 @@
 
             <meta-data
                 android:name="settingsActivity"
-                android:value="net.ebt.muzei.miyazaki.activity.MuzeiMiyazakiSettings"/>
+                android:value="net.ebt.muzei.miyazaki.SettingsActivity"/>
         </provider>
 
     </application>

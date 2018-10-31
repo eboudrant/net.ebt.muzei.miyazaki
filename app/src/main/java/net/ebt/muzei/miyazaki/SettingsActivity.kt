@@ -1,4 +1,4 @@
-package net.ebt.muzei.miyazaki.activity
+package net.ebt.muzei.miyazaki
 
 import android.database.Cursor
 import android.os.Bundle
@@ -10,12 +10,10 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.google.android.apps.muzei.api.provider.ProviderContract
-import net.ebt.muzei.miyazaki.BuildConfig
 import net.ebt.muzei.miyazaki.BuildConfig.GHIBLI_AUTHORITY
-import net.ebt.muzei.miyazaki.R
 import net.ebt.muzei.miyazaki.load.UpdateMuzeiWorker
 
-class MuzeiMiyazakiSettings : FragmentActivity(), LoaderManager.LoaderCallbacks<Cursor> {
+class SettingsActivity : FragmentActivity(), LoaderManager.LoaderCallbacks<Cursor> {
 
     companion object {
         private const val ALPHA_DEACTIVATED = 0.3f
