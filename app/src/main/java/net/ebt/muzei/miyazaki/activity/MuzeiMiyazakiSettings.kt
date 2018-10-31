@@ -1,0 +1,95 @@
+package net.ebt.muzei.miyazaki.activity
+
+import android.database.Cursor
+import android.os.Bundle
+import android.support.v4.app.FragmentActivity
+import android.support.v4.app.LoaderManager
+import android.support.v4.content.CursorLoader
+import android.support.v4.content.Loader
+import android.view.View
+import android.widget.FrameLayout
+import android.widget.TextView
+import com.google.android.apps.muzei.api.provider.ProviderContract
+import net.ebt.muzei.miyazaki.BuildConfig
+import net.ebt.muzei.miyazaki.BuildConfig.GHIBLI_AUTHORITY
+import net.ebt.muzei.miyazaki.R
+import net.ebt.muzei.miyazaki.load.UpdateMuzeiWorker
+
+class MuzeiMiyazakiSettings : FragmentActivity(), LoaderManager.LoaderCallbacks<Cursor> {
+
+    companion object {
+        private const val ALPHA_DEACTIVATED = 0.3f
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.settings)
+        updateMatches()
+        LoaderManager.getInstance(this).initLoader(0, null, this)
+    }
+
+    override fun onCreateLoader(id: Int, arguments: Bundle?): Loader<Cursor> {
+        return CursorLoader(this,
+                ProviderContract.Artwork.getContentUri(GHIBLI_AUTHORITY),
+                null, null, null, null)
+    }
+
+    override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor) {
+        val count = data.count.toLong()
+        val matches: TextView = findViewById(R.id.matches)
+        if (BuildConfig.DEBUG) {
+            var percentArtworkWithCaption = 0
+            if (count > 0) {
+                while (data.moveToNext()) {
+                    val caption = data.getString(data.getColumnIndex(ProviderContract.Artwork.BYLINE))
+                    if (caption != null && !caption.isEmpty()) {
+                        percentArtworkWithCaption++
+                    }
+                }
+                percentArtworkWithCaption *= 100
+                percentArtworkWithCaption /= count.toInt()
+            }
+            matches.text = "Using $count artworks ($percentArtworkWithCaption%)"
+        } else {
+            matches.text = "Using $count artworks"
+        }
+    }
+
+    override fun onLoaderReset(loader: Loader<Cursor>) {}
+
+    fun onColor(view: View) {
+        val selectedView = if (view is FrameLayout) {
+            view.getChildAt(0)
+        } else {
+            view
+        }
+
+        when(selectedView.id) {
+            R.id.black -> UpdateMuzeiWorker.toggleColor(this, "black")
+            R.id.grey -> UpdateMuzeiWorker.toggleColor(this, "grey")
+            R.id.silver -> UpdateMuzeiWorker.toggleColor(this, "silver")
+            R.id.maroon -> UpdateMuzeiWorker.toggleColor(this, "maroon")
+            R.id.olive -> UpdateMuzeiWorker.toggleColor(this, "olive")
+            R.id.green -> UpdateMuzeiWorker.toggleColor(this, "green")
+            R.id.teal -> UpdateMuzeiWorker.toggleColor(this, "teal")
+            R.id.navy -> UpdateMuzeiWorker.toggleColor(this, "navy")
+            R.id.purple -> UpdateMuzeiWorker.toggleColor(this, "purple")
+        }
+
+        updateMatches()
+    }
+
+    private fun updateMatches() {
+        val color = UpdateMuzeiWorker.getCurrentColor(this)
+        findViewById<View>(R.id.black).alpha = ALPHA_DEACTIVATED
+        findViewById<View>(R.id.maroon).alpha = ALPHA_DEACTIVATED
+        findViewById<View>(R.id.navy).alpha = ALPHA_DEACTIVATED
+        findViewById<View>(R.id.teal).alpha = ALPHA_DEACTIVATED
+        findViewById<View>(R.id.green).alpha = ALPHA_DEACTIVATED
+        if ("black" == color) findViewById<View>(R.id.black).alpha = 1.0f
+        if ("maroon" == color) findViewById<View>(R.id.maroon).alpha = 1.0f
+        if ("navy" == color) findViewById<View>(R.id.navy).alpha = 1.0f
+        if ("teal" == color) findViewById<View>(R.id.teal).alpha = 1.0f
+        if ("green" == color) findViewById<View>(R.id.green).alpha = 1.0f
+    }
+}
