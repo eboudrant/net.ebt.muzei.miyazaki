@@ -17,11 +17,9 @@ import net.ebt.muzei.miyazaki.R;
 import net.ebt.muzei.miyazaki.app.MuzeiMiyazakiApplication;
 import net.ebt.muzei.miyazaki.load.UpdateMuzeiWorker;
 import net.ebt.muzei.miyazaki.model.Artwork;
-import net.ebt.muzei.miyazaki.service.MuzeiMiyazakiService;
 
 import java.util.List;
 
-import static net.ebt.muzei.miyazaki.Constants.ACTION_RELOAD;
 import static net.ebt.muzei.miyazaki.Constants.CURRENT_PREF_NAME;
 import static net.ebt.muzei.miyazaki.Constants.MUZEI_COLOR;
 
@@ -134,12 +132,6 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
         settings.edit().remove(MUZEI_COLOR).apply();
         remove = true;
       } else settings.edit().putString(MUZEI_COLOR, "purple").apply();
-    }
-
-    if (!remove) {
-      Intent intent = new Intent(ACTION_RELOAD);
-      intent.setClass(this, MuzeiMiyazakiService.class);
-      startService(intent);
     }
 
     updateMatches(settings);

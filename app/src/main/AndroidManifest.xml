@@ -29,19 +29,10 @@
 
         <service
             android:name=".service.MuzeiMiyazakiService"
-            android:label="@string/source_name"
-            android:description="@string/source_description"
-            android:icon="@drawable/ic_source">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.apps.muzei.api.MuzeiArtSource"/>
             </intent-filter>
-
-            <meta-data
-                android:name="settingsActivity"
-                android:value="net.ebt.muzei.miyazaki.activity.MuzeiMiyazakiSettings"/>
-            <meta-data
-                android:name="color"
-                android:value="#90cc7a"/>
             <meta-data
                 android:name="replacement"
                 android:value="${ghibliAuthority}"/>
