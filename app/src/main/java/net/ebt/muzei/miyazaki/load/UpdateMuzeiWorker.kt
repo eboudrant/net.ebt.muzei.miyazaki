@@ -5,6 +5,7 @@ import android.content.ContentUris
 import android.content.Context
 import android.provider.BaseColumns
 import android.util.Log
+import androidx.core.content.edit
 import androidx.core.net.toUri
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
@@ -15,8 +16,6 @@ import com.google.android.apps.muzei.api.MuzeiContract
 import com.google.android.apps.muzei.api.provider.Artwork
 import com.google.android.apps.muzei.api.provider.ProviderContract
 import net.ebt.muzei.miyazaki.BuildConfig.GHIBLI_AUTHORITY
-import net.ebt.muzei.miyazaki.Constants.CURRENT_PREF_NAME
-import net.ebt.muzei.miyazaki.Constants.MUZEI_COLOR
 import net.ebt.muzei.miyazaki.database.ArtworkDatabase
 
 class UpdateMuzeiWorker(
@@ -26,8 +25,30 @@ class UpdateMuzeiWorker(
 
     companion object {
         private const val TAG = "UpdateMuzeiWorker"
+        private const val CURRENT_PREF_NAME = "MuzeiGhibli.current"
+        private const val SELECTED_COLOR = "muzei_color"
 
-        fun enqueueUpdate() {
+        fun toggleColor(context: Context, color: String) {
+            val sharedPreferences = context.getSharedPreferences(
+                    CURRENT_PREF_NAME, Context.MODE_PRIVATE)
+            val currentColor = sharedPreferences.getString(SELECTED_COLOR,  null)
+            sharedPreferences.edit {
+                if (color == currentColor) {
+                    remove(SELECTED_COLOR)
+                } else {
+                    putString(SELECTED_COLOR, color)
+                }
+            }
+            enqueueUpdate()
+        }
+
+        fun getCurrentColor(context: Context): String? {
+            val sharedPreferences = context.getSharedPreferences(
+                    CURRENT_PREF_NAME, Context.MODE_PRIVATE)
+            return sharedPreferences.getString(SELECTED_COLOR,  null)
+        }
+
+        private fun enqueueUpdate() {
             val workManager = WorkManager.getInstance()
             workManager.beginUniqueWork("load", ExistingWorkPolicy.APPEND,
                     OneTimeWorkRequestBuilder<UpdateMuzeiWorker>()
@@ -37,11 +58,11 @@ class UpdateMuzeiWorker(
     }
 
     override fun doWork(): Result {
-        val settings = applicationContext.getSharedPreferences(
+        val sharedPreferences = applicationContext.getSharedPreferences(
                 CURRENT_PREF_NAME, Context.MODE_PRIVATE)
         val artworkList = ArtworkDatabase.getInstance(applicationContext)
                 .artworkDao()
-                .getArtwork(settings.getString(MUZEI_COLOR, ""))
+                .getArtwork(sharedPreferences.getString(SELECTED_COLOR, ""))
         val currentTime = System.currentTimeMillis()
         artworkList.forEach { artwork ->
             if (!isCancelled) {

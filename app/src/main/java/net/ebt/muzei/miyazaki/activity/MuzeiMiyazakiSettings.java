@@ -1,7 +1,5 @@
 package net.ebt.muzei.miyazaki.activity;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,8 +19,6 @@ import net.ebt.muzei.miyazaki.R;
 import net.ebt.muzei.miyazaki.load.UpdateMuzeiWorker;
 
 import static net.ebt.muzei.miyazaki.BuildConfig.GHIBLI_AUTHORITY;
-import static net.ebt.muzei.miyazaki.Constants.CURRENT_PREF_NAME;
-import static net.ebt.muzei.miyazaki.Constants.MUZEI_COLOR;
 
 public class MuzeiMiyazakiSettings extends FragmentActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -33,7 +29,7 @@ public class MuzeiMiyazakiSettings extends FragmentActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.settings);
-    updateMatches(getApplicationContext().getSharedPreferences(CURRENT_PREF_NAME, Context.MODE_PRIVATE));
+    updateMatches();
     LoaderManager.getInstance(this).initLoader(0, null, this);
   }
 
@@ -76,59 +72,31 @@ public class MuzeiMiyazakiSettings extends FragmentActivity
       view = FrameLayout.class.cast(view).getChildAt(0);
     }
 
-    final SharedPreferences settings = getApplicationContext().getSharedPreferences(CURRENT_PREF_NAME, Context.MODE_PRIVATE);
-    String color = settings.getString(MUZEI_COLOR, "");
-
-    findViewById(R.id.black).setAlpha(ALPHA_DEACTIVATED);
-    findViewById(R.id.maroon).setAlpha(ALPHA_DEACTIVATED);
-    findViewById(R.id.navy).setAlpha(ALPHA_DEACTIVATED);
-    findViewById(R.id.teal).setAlpha(ALPHA_DEACTIVATED);
-    findViewById(R.id.green).setAlpha(ALPHA_DEACTIVATED);
-
     if (view.getId() == R.id.black) {
-      if ("black".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).apply();
-      } else settings.edit().putString(MUZEI_COLOR, "black").apply();
+      UpdateMuzeiWorker.Companion.toggleColor(this, "black");
     } else if (view.getId() == R.id.grey) {
-      if ("grey".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).apply();
-      } else settings.edit().putString(MUZEI_COLOR, "grey").apply();
+      UpdateMuzeiWorker.Companion.toggleColor(this, "grey");
     } else if (view.getId() == R.id.silver) {
-      if ("silver".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).apply();
-      } else settings.edit().putString(MUZEI_COLOR, "silver").apply();
+      UpdateMuzeiWorker.Companion.toggleColor(this, "silver");
     } else if (view.getId() == R.id.maroon) {
-      if ("maroon".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).apply();
-      } else settings.edit().putString(MUZEI_COLOR, "maroon").apply();
+      UpdateMuzeiWorker.Companion.toggleColor(this, "maroon");
     } else if (view.getId() == R.id.olive) {
-      if ("olive".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).apply();
-      } else settings.edit().putString(MUZEI_COLOR, "olive").apply();
+      UpdateMuzeiWorker.Companion.toggleColor(this, "olive");
     } else if (view.getId() == R.id.green) {
-      if ("green".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).apply();
-      } else settings.edit().putString(MUZEI_COLOR, "green").apply();
+      UpdateMuzeiWorker.Companion.toggleColor(this, "green");
     } else if (view.getId() == R.id.teal) {
-      if ("teal".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).apply();
-      } else settings.edit().putString(MUZEI_COLOR, "teal").apply();
+      UpdateMuzeiWorker.Companion.toggleColor(this, "teal");
     } else if (view.getId() == R.id.navy) {
-      if ("navy".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).apply();
-      } else settings.edit().putString(MUZEI_COLOR, "navy").apply();
+      UpdateMuzeiWorker.Companion.toggleColor(this, "navy");
     } else if (view.getId() == R.id.purple) {
-      if ("purple".equals(color)) {
-        settings.edit().remove(MUZEI_COLOR).apply();
-      } else settings.edit().putString(MUZEI_COLOR, "purple").apply();
+      UpdateMuzeiWorker.Companion.toggleColor(this, "purple");
     }
 
-    updateMatches(settings);
-    UpdateMuzeiWorker.Companion.enqueueUpdate();
+    updateMatches();
   }
 
-  private void updateMatches(SharedPreferences settings) {
-    String color = settings.getString(MUZEI_COLOR, null);
+  private void updateMatches() {
+    String color = UpdateMuzeiWorker.Companion.getCurrentColor(this);
     findViewById(R.id.black).setAlpha(ALPHA_DEACTIVATED);
     findViewById(R.id.maroon).setAlpha(ALPHA_DEACTIVATED);
     findViewById(R.id.navy).setAlpha(ALPHA_DEACTIVATED);
