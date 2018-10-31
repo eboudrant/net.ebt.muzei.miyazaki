@@ -70,24 +70,6 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
     }
 
     setContentView(R.layout.settings);
-
-    final TextView label = findViewById(R.id.muzei_label);
-    label.setVisibility(View.GONE);
-
-    findViewById(R.id.seeall).setVisibility(View.GONE);
-    findViewById(R.id.seeall).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        try {
-          Intent intent = new Intent(Intent.ACTION_VIEW);
-          intent.setData(Uri.parse("http://muzeighibli.net?jsessionid=" + String.valueOf(System.currentTimeMillis()).hashCode() + "&a=" + Settings.Secure.getString(MuzeiMiyazakiSettings.this.getContentResolver(), Settings.Secure.ANDROID_ID).hashCode()));
-          startActivity(intent);
-          UiUtils.makeToast(MuzeiMiyazakiSettings.this, R.string.help_captions, Level.INFO);
-        } catch (ActivityNotFoundException e) {
-          UiUtils.makeToast(MuzeiMiyazakiSettings.this, R.string.install_chrome, Level.INFO);
-        }
-      }
-    });
   }
 
   @Override
