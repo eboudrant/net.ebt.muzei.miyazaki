@@ -2,9 +2,5 @@
     <string name="source_description">The Timeless Beauty Of Studio Ghibli\'s Movies</string>
     <string name="source_name">Studio Ghibli</string>
     <string name="app_name">Muzei Ghibli</string>
-    <string name="wifi">WIFI</string>
-    <string name="seeall">See all on muzeighibli.net</string>
     <string name="image_color">Choose a color</string>
-    <string name="help_captions">Opening http://muzeighibli.net (best result with Google Chrome)</string>
-    <string name="install_chrome">Please install Chrome browser</string>
 </resources>
