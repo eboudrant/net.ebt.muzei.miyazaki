@@ -1,6 +1,5 @@
 package net.ebt.muzei.miyazaki.activity;
 
-
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -11,37 +10,28 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import net.ebt.muzei.miyazaki.BuildConfig;
 import net.ebt.muzei.miyazaki.R;
-import net.ebt.muzei.miyazaki.load.UpdateMuzeiWorker;
 import net.ebt.muzei.miyazaki.app.MuzeiMiyazakiApplication;
+import net.ebt.muzei.miyazaki.load.UpdateMuzeiWorker;
 import net.ebt.muzei.miyazaki.model.Artwork;
 import net.ebt.muzei.miyazaki.service.MuzeiMiyazakiService;
 import net.ebt.muzei.miyazaki.util.UiUtils;
-import net.ebt.muzei.miyazaki.util.Utils;
 
 import java.util.List;
 import java.util.logging.Level;
 
 import static net.ebt.muzei.miyazaki.Constants.ACTION_RELOAD;
 import static net.ebt.muzei.miyazaki.Constants.CURRENT_PREF_NAME;
-import static net.ebt.muzei.miyazaki.Constants.DEFAULT_INTERVAL;
-import static net.ebt.muzei.miyazaki.Constants.INTERVALS;
 import static net.ebt.muzei.miyazaki.Constants.MUZEI_COLOR;
 import static net.ebt.muzei.miyazaki.Constants.MUZEI_FRAME;
-import static net.ebt.muzei.miyazaki.Constants.MUZEI_INTERVAL;
-import static net.ebt.muzei.miyazaki.Constants.MUZEI_WIFI;
 
 public class MuzeiMiyazakiSettings extends FragmentActivity {
 
-  private static final String TAG = "MuzeiMiyazakiSettings";
   private static final float ALPHA_DEACTIVATED = 0.3f;
 
   @Override
@@ -81,59 +71,7 @@ public class MuzeiMiyazakiSettings extends FragmentActivity {
 
     setContentView(R.layout.settings);
 
-    int interval = settings.getInt(MUZEI_INTERVAL, DEFAULT_INTERVAL);
-
-    final View colors = findViewById(R.id.colors);
-    final SeekBar seekBar = findViewById(R.id.muzei_interval);
-    final CheckBox wifi = findViewById(R.id.muzei_wifi);
-    final TextView configLabel = findViewById(R.id.muzei_config_label);
     final TextView label = findViewById(R.id.muzei_label);
-    configLabel.setText("Refresh every " + Utils.formatDuration(INTERVALS.get(interval)));
-
-    seekBar.setMax(INTERVALS.size() - 1);
-    seekBar.setProgress(interval);
-    seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-      @Override
-      public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        label.setText(Utils.formatDuration(INTERVALS.get(progress)).toUpperCase());
-      }
-
-      @Override
-      public void onStartTrackingTouch(SeekBar seekBar) {
-        configLabel.setVisibility(View.INVISIBLE);
-        colors.setVisibility(View.GONE);
-        label.setVisibility(View.VISIBLE);
-      }
-
-      @Override
-      public void onStopTrackingTouch(SeekBar seekBar) {
-        label.setText(null);
-        label.setVisibility(View.GONE);
-        configLabel.setText("Refresh every " + Utils.formatDuration(INTERVALS.get(seekBar.getProgress())));
-        configLabel.setVisibility(View.VISIBLE);
-        colors.setVisibility(View.VISIBLE);
-
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt(MUZEI_INTERVAL, seekBar.getProgress());
-        editor.apply();
-
-        Intent intent = new Intent(MuzeiMiyazakiService.ACTION_RESCHEDULE);
-        intent.setClass(seekBar.getContext(), MuzeiMiyazakiService.class);
-        startService(intent);
-      }
-    });
-
-    wifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-      @Override
-      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(MUZEI_WIFI, isChecked);
-        editor.apply();
-      }
-    });
-
-    wifi.setChecked(settings.getBoolean(MUZEI_WIFI, true));
     label.setVisibility(View.GONE);
 
     findViewById(R.id.seeall).setVisibility(View.GONE);
