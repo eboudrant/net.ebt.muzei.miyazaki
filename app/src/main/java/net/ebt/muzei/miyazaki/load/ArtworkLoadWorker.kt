@@ -46,7 +46,7 @@ class ArtworkLoadWorker(
 
     override fun doWork(): Result {
         val artworkList = try {
-            GhibliService.list()
+            GhibliService.list(applicationContext)
         } catch(e: IOException) {
             Log.w(TAG, "Error loading artwork", e)
             return Result.RETRY
