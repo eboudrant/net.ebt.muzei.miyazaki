@@ -11,8 +11,13 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import net.ebt.muzei.miyazaki.Artwork
 import net.ebt.muzei.miyazaki.BuildConfig
 import net.ebt.muzei.miyazaki.database.ArtworkDatabase
+import okio.Okio
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
@@ -23,10 +28,23 @@ class ArtworkLoadWorker(
 
     companion object {
         private const val TAG = "ArtworkLoadWorker"
+        private const val INITIAL_TAG = "initial"
         private const val LAST_LOADED_MILLIS = "last_loaded_millis"
         private val EXPIRATION = TimeUnit.DAYS.toMillis(15)
 
-        fun enqueueLoad(context: Context) {
+        fun enqueueInitialLoad() {
+            val workManager = WorkManager.getInstance()
+            // Kick off an immediate initial load with no network constraints
+            workManager.beginUniqueWork("load", ExistingWorkPolicy.REPLACE,
+                    OneTimeWorkRequestBuilder<ArtworkLoadWorker>()
+                            .addTag(INITIAL_TAG)
+                            .build())
+                    .then(OneTimeWorkRequestBuilder<UpdateMuzeiWorker>()
+                            .build())
+                    .enqueue()
+        }
+
+        fun enqueueReload(context: Context) {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
             val lastLoadedMillis = sharedPreferences.getLong(LAST_LOADED_MILLIS, 0L)
             if (System.currentTimeMillis() - lastLoadedMillis > EXPIRATION || BuildConfig.DEBUG) {
@@ -45,17 +63,38 @@ class ArtworkLoadWorker(
     }
 
     override fun doWork(): Result {
-        val artworkList = try {
-            GhibliService.list(applicationContext)
+        val (artworkList, loadedFromNetwork) = try {
+            GhibliService.list(applicationContext) to true
         } catch(e: IOException) {
             Log.w(TAG, "Error loading artwork", e)
-            return Result.RETRY
+            if (INITIAL_TAG in tags) {
+                // Try to load artwork from our data.json local asset only if we've never loaded
+                // artwork before as we don't want to override previously successful loads
+                // with our (potentially outdated) local asset
+                try {
+                    Okio.buffer(Okio.source(
+                            applicationContext.resources.assets.open("data.json"))).use { input ->
+                        val moshi = Moshi.Builder().build()
+                        val listType = Types.newParameterizedType(
+                                List::class.java, Artwork::class.java)
+                        val adapter: JsonAdapter<List<Artwork>> = moshi.adapter(listType)
+                        adapter.fromJson(input)!! to false
+                    }
+                } catch (error: Exception) {
+                    Log.e(TAG, "Error loading data.json", error)
+                    return Result.FAILURE
+                }
+            } else {
+                return Result.RETRY
+            }
         }
         ArtworkDatabase.getInstance(applicationContext)
                 .artworkDao()
                 .setArtwork(artworkList)
-        PreferenceManager.getDefaultSharedPreferences(applicationContext).edit {
-            putLong(LAST_LOADED_MILLIS, System.currentTimeMillis())
+        if (loadedFromNetwork) {
+            PreferenceManager.getDefaultSharedPreferences(applicationContext).edit {
+                putLong(LAST_LOADED_MILLIS, System.currentTimeMillis())
+            }
         }
         return Result.SUCCESS
     }

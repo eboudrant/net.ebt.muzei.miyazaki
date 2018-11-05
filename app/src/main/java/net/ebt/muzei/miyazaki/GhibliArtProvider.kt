@@ -9,7 +9,11 @@ import net.ebt.muzei.miyazaki.load.ArtworkLoadWorker
 class GhibliArtProvider : MuzeiArtProvider() {
     override fun onLoadRequested(initial: Boolean) {
         val context = context ?: return
-        ArtworkLoadWorker.enqueueLoad(context)
+        if (initial) {
+            ArtworkLoadWorker.enqueueInitialLoad()
+        } else {
+            ArtworkLoadWorker.enqueueReload(context)
+        }
     }
 
     override fun openArtworkInfo(artwork: Artwork): Boolean {
