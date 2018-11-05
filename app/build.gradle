@@ -41,10 +41,6 @@ android {
         buildConfigField "String", "GHIBLI_AUTHORITY", "\"${ghibliAuthorityValue}\""
     }
 
-    sourceSets.main {
-        java.srcDir 'src/main/java'
-    }
-
     signingConfigs {
         release {
             Properties localProps = new Properties()
@@ -66,24 +62,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), file('proguard-project.txt')
             signingConfig signingConfigs.release
         }
-
-        publicBeta.initWith(buildTypes.release)
-        publicBeta {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), file('proguard-project.txt')
-        }
-
-        publicDebug.initWith(buildTypes.publicBeta)
-        publicDebug {
-            debuggable true
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), file('proguard-project.txt')
-        }
-    }
-
-    packagingOptions {
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
     }
 }
 
