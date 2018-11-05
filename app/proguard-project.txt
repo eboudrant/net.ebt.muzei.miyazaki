@@ -23,6 +23,8 @@
 
 -keepattributes SourceFile,LineNumberTable
 
+-dontobfuscate
+
 # okhttp
 
 # JSR 305 annotations are for embedding nullability information.
