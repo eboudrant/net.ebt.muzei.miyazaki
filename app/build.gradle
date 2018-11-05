@@ -91,10 +91,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.squareup.retrofit2:retrofit:2.4.0"
     implementation "com.squareup.retrofit2:converter-moshi:2.3.0"
-    implementation 'androidx.core:core-ktx:0.3'
-    implementation 'com.android.support:support-fragment:28.0.0'
-    implementation "android.arch.persistence.room:runtime:1.1.1"
-    kapt "android.arch.persistence.room:compiler:1.1.1"
+    implementation 'androidx.core:core-ktx:1.0.0'
+    implementation 'androidx.fragment:fragment:1.0.0'
+    implementation "androidx.room:room-runtime:2.1.0-alpha02"
+    kapt "androidx.room:room-compiler:2.1.0-alpha02"
     implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha10'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.google.android.apps.muzei:muzei-api:3.0.0'
