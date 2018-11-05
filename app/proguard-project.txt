@@ -23,10 +23,6 @@
 
 -keepattributes SourceFile,LineNumberTable
 
--keep public class com.google.gson
--dontnote com.google.gson.**
--dontwarn com.google.gson.**
-
 # JSR 305 annotations are for embedding nullability information.
 -dontwarn javax.annotation.**
 
@@ -38,12 +34,3 @@
 
 # OkHttp platform used only on JVM and when Conscrypt dependency is available.
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
-
--keep class net.ebt.muzei.miyazaki.model.** { *;}
--dontnote net.ebt.muzei.miyazaki.model.**
--dontwarn net.ebt.muzei.miyazaki.model.**
-
--keepattributes *Annotation*,Signature
--keep class * extends com.google.api.client.json.GenericJson {
-*;
-}
