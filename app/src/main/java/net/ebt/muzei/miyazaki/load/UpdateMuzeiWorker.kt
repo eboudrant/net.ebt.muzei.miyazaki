@@ -7,21 +7,23 @@ import android.provider.BaseColumns
 import android.util.Log
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import androidx.work.CoroutineWorker
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.android.apps.muzei.api.MuzeiContract
 import com.google.android.apps.muzei.api.provider.Artwork
 import com.google.android.apps.muzei.api.provider.ProviderContract
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import net.ebt.muzei.miyazaki.BuildConfig.GHIBLI_AUTHORITY
 import net.ebt.muzei.miyazaki.database.ArtworkDatabase
 
 class UpdateMuzeiWorker(
         context: Context,
         workerParams: WorkerParameters
-) : Worker(context, workerParams) {
+) : CoroutineWorker(context, workerParams) {
 
     companion object {
         private const val TAG = "UpdateMuzeiWorker"
@@ -50,14 +52,13 @@ class UpdateMuzeiWorker(
 
         private fun enqueueUpdate() {
             val workManager = WorkManager.getInstance()
-            workManager.beginUniqueWork("load", ExistingWorkPolicy.APPEND,
+            workManager.enqueueUniqueWork("load", ExistingWorkPolicy.APPEND,
                     OneTimeWorkRequestBuilder<UpdateMuzeiWorker>()
                             .build())
-                    .enqueue()
         }
     }
 
-    override fun doWork(): Result {
+    override suspend fun doWork(): Payload {
         val sharedPreferences = applicationContext.getSharedPreferences(
                 CURRENT_PREF_NAME, Context.MODE_PRIVATE)
         val artworkList = ArtworkDatabase.getInstance(applicationContext)
@@ -65,7 +66,7 @@ class UpdateMuzeiWorker(
                 .getArtwork(sharedPreferences.getString(SELECTED_COLOR, ""))
         val currentTime = System.currentTimeMillis()
         artworkList.forEach { artwork ->
-            if (!isCancelled) {
+            withContext(Dispatchers.IO) {
                 ProviderContract.Artwork.addArtwork(applicationContext, GHIBLI_AUTHORITY,
                         Artwork.Builder()
                                 .token(artwork.hash)
@@ -75,7 +76,7 @@ class UpdateMuzeiWorker(
                                 .build())
             }
         }
-        if (!isCancelled) {
+        withContext(Dispatchers.IO) {
             val contentUri = ProviderContract.Artwork.getContentUri(GHIBLI_AUTHORITY)
             val deleteOperations = ArrayList<ContentProviderOperation>()
             applicationContext.contentResolver.query(
@@ -104,6 +105,6 @@ class UpdateMuzeiWorker(
                 }
             }
         }
-        return Result.SUCCESS
+        return Payload(Result.SUCCESS)
     }
 }

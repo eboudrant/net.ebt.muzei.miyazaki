@@ -4,13 +4,15 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import net.ebt.muzei.miyazaki.Artwork
 
 @Dao
 abstract class ArtworkDao {
 
     @Transaction
-    open fun setArtwork(artworkList: List<Artwork>) {
+    open suspend fun setArtwork(artworkList: List<Artwork>): Unit = withContext(Dispatchers.IO) {
         deleteAll()
         insert(artworkList)
     }
@@ -21,17 +23,19 @@ abstract class ArtworkDao {
     @Insert
     internal abstract fun insert(artworkList: List<Artwork>)
 
-    fun getArtwork(color: String? = null) = when (color) {
-        "black" -> blackArtwork
-        "grey" -> greyArtwork
-        "silver" -> silverArtwork
-        "maroon" -> maroonArtwork
-        "olive" -> oliveArtwork
-        "green" -> greenArtwork
-        "teal" -> tealArtwork
-        "navy" -> navyArtwork
-        "purple" -> purpleArtwork
-        else -> artwork
+    suspend fun getArtwork(color: String? = null) = withContext(Dispatchers.IO) {
+        when (color) {
+            "black" -> blackArtwork
+            "grey" -> greyArtwork
+            "silver" -> silverArtwork
+            "maroon" -> maroonArtwork
+            "olive" -> oliveArtwork
+            "green" -> greenArtwork
+            "teal" -> tealArtwork
+            "navy" -> navyArtwork
+            "purple" -> purpleArtwork
+            else -> artwork
+        }
     }
 
     @get:Query("SELECT * FROM artwork")

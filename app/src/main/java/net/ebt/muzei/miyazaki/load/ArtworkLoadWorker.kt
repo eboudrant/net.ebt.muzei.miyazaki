@@ -5,26 +5,27 @@ import android.preference.PreferenceManager
 import android.util.Log
 import androidx.core.content.edit
 import androidx.work.Constraints
+import androidx.work.CoroutineWorker
 import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import net.ebt.muzei.miyazaki.Artwork
 import net.ebt.muzei.miyazaki.BuildConfig
 import net.ebt.muzei.miyazaki.database.ArtworkDatabase
 import okio.Okio
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class ArtworkLoadWorker(
         context: Context,
         workerParams: WorkerParameters
-) : Worker(context, workerParams) {
+) : CoroutineWorker(context, workerParams) {
 
     companion object {
         private const val TAG = "ArtworkLoadWorker"
@@ -62,40 +63,44 @@ class ArtworkLoadWorker(
         }
     }
 
-    override fun doWork(): Result {
+    override suspend fun doWork(): Payload {
         val (artworkList, loadedFromNetwork) = try {
             GhibliService.list(applicationContext) to true
-        } catch(e: IOException) {
+        } catch(e: Exception) {
             Log.w(TAG, "Error loading artwork", e)
             if (INITIAL_TAG in tags) {
                 // Try to load artwork from our data.json local asset only if we've never loaded
                 // artwork before as we don't want to override previously successful loads
                 // with our (potentially outdated) local asset
                 try {
-                    Okio.buffer(Okio.source(
-                            applicationContext.resources.assets.open("data.json"))).use { input ->
-                        val moshi = Moshi.Builder().build()
-                        val listType = Types.newParameterizedType(
-                                List::class.java, Artwork::class.java)
-                        val adapter: JsonAdapter<List<Artwork>> = moshi.adapter(listType)
-                        adapter.fromJson(input)!! to false
+                    withContext(Dispatchers.IO) {
+                        Okio.buffer(Okio.source(
+                                applicationContext.resources.assets.open("data.json"))).use { input ->
+                            val moshi = Moshi.Builder().build()
+                            val listType = Types.newParameterizedType(
+                                    List::class.java, Artwork::class.java)
+                            val adapter: JsonAdapter<List<Artwork>> = moshi.adapter(listType)
+                            adapter.fromJson(input)!! to false
+                        }
                     }
                 } catch (error: Exception) {
                     Log.e(TAG, "Error loading data.json", error)
-                    return Result.FAILURE
+                    return Payload(Result.FAILURE)
                 }
             } else {
-                return Result.RETRY
+                return Payload(Result.RETRY)
             }
         }
         ArtworkDatabase.getInstance(applicationContext)
                 .artworkDao()
                 .setArtwork(artworkList)
         if (loadedFromNetwork) {
-            PreferenceManager.getDefaultSharedPreferences(applicationContext).edit {
-                putLong(LAST_LOADED_MILLIS, System.currentTimeMillis())
+            withContext(Dispatchers.IO) {
+                PreferenceManager.getDefaultSharedPreferences(applicationContext).edit {
+                    putLong(LAST_LOADED_MILLIS, System.currentTimeMillis())
+                }
             }
         }
-        return Result.SUCCESS
+        return Payload(Result.SUCCESS)
     }
 }
