@@ -74,7 +74,7 @@ dependencies {
     implementation 'com.squareup.moshi:moshi:1.7.0'
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.7.0'
     implementation 'androidx.core:core-ktx:1.0.0'
-    implementation 'androidx.fragment:fragment:1.0.0'
+    implementation 'androidx.activity:activity:1.0.0-alpha01'
     implementation "androidx.room:room-runtime:2.1.0-alpha02"
     kapt "androidx.room:room-compiler:2.1.0-alpha02"
     implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha11'

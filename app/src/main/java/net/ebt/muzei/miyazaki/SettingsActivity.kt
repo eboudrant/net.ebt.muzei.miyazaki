@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
+import androidx.activity.ComponentActivity
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
@@ -13,7 +13,7 @@ import com.google.android.apps.muzei.api.provider.ProviderContract
 import net.ebt.muzei.miyazaki.BuildConfig.GHIBLI_AUTHORITY
 import net.ebt.muzei.miyazaki.load.UpdateMuzeiWorker
 
-class SettingsActivity : FragmentActivity(), LoaderManager.LoaderCallbacks<Cursor> {
+class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Cursor> {
 
     companion object {
         private const val ALPHA_DEACTIVATED = 0.3f
