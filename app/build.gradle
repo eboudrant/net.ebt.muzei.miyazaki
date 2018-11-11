@@ -79,5 +79,5 @@ dependencies {
     kapt "androidx.room:room-compiler:2.1.0-alpha02"
     implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha11'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-    implementation 'com.google.android.apps.muzei:muzei-api:3.0.0'
+    implementation 'com.google.android.apps.muzei:muzei-api:3.1.0-alpha01'
 }

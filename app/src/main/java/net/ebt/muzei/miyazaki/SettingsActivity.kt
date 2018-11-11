@@ -28,7 +28,7 @@ class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Curs
 
     override fun onCreateLoader(id: Int, arguments: Bundle?): Loader<Cursor> {
         return CursorLoader(this,
-                ProviderContract.Artwork.getContentUri(GHIBLI_AUTHORITY),
+                ProviderContract.getContentUri(GHIBLI_AUTHORITY),
                 null, null, null, null)
     }
 
