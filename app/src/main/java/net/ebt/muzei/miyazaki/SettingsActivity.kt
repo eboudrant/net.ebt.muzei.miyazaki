@@ -68,14 +68,10 @@ class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Curs
 
         when(selectedView.id) {
             R.id.black -> UpdateMuzeiWorker.toggleColor(this, "black")
-            R.id.grey -> UpdateMuzeiWorker.toggleColor(this, "grey")
-            R.id.silver -> UpdateMuzeiWorker.toggleColor(this, "silver")
             R.id.maroon -> UpdateMuzeiWorker.toggleColor(this, "maroon")
-            R.id.olive -> UpdateMuzeiWorker.toggleColor(this, "olive")
             R.id.green -> UpdateMuzeiWorker.toggleColor(this, "green")
             R.id.teal -> UpdateMuzeiWorker.toggleColor(this, "teal")
             R.id.navy -> UpdateMuzeiWorker.toggleColor(this, "navy")
-            R.id.purple -> UpdateMuzeiWorker.toggleColor(this, "purple")
         }
 
         updateMatches()

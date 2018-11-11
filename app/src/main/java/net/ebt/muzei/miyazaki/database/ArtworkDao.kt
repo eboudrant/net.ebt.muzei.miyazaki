@@ -26,14 +26,10 @@ abstract class ArtworkDao {
     suspend fun getArtwork(color: String? = null) = withContext(Dispatchers.IO) {
         when (color) {
             "black" -> blackArtwork
-            "grey" -> greyArtwork
-            "silver" -> silverArtwork
             "maroon" -> maroonArtwork
-            "olive" -> oliveArtwork
             "green" -> greenArtwork
             "teal" -> tealArtwork
             "navy" -> navyArtwork
-            "purple" -> purpleArtwork
             else -> artwork
         }
     }
@@ -45,21 +41,9 @@ abstract class ArtworkDao {
             "SELECT avg(black) FROM artwork WHERE black > 0)")
     internal abstract val blackArtwork: List<Artwork>
 
-    @get:Query("SELECT * FROM artwork WHERE grey > (" +
-            "SELECT avg(grey) FROM artwork WHERE grey > 0)")
-    internal abstract val greyArtwork: List<Artwork>
-
-    @get:Query("SELECT * FROM artwork WHERE silver > (" +
-            "SELECT avg(silver) FROM artwork WHERE silver > 0)")
-    internal abstract val silverArtwork: List<Artwork>
-
     @get:Query("SELECT * FROM artwork WHERE maroon > (" +
             "SELECT avg(maroon) FROM artwork WHERE maroon > 0)")
     internal abstract val maroonArtwork: List<Artwork>
-
-    @get:Query("SELECT * FROM artwork WHERE olive > (" +
-            "SELECT avg(olive) FROM artwork WHERE olive > 0)")
-    internal abstract val oliveArtwork: List<Artwork>
 
     @get:Query("SELECT * FROM artwork WHERE green > (" +
             "SELECT avg(green) FROM artwork WHERE green > 0)")
@@ -72,8 +56,4 @@ abstract class ArtworkDao {
     @get:Query("SELECT * FROM artwork WHERE navy > (" +
             "SELECT avg(navy) FROM artwork WHERE navy > 0)")
     internal abstract val navyArtwork: List<Artwork>
-
-    @get:Query("SELECT * FROM artwork WHERE purple > (" +
-            "SELECT avg(purple) FROM artwork WHERE purple > 0)")
-    internal abstract val purpleArtwork: List<Artwork>
 }
