@@ -2,7 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Material.NoActionBar">
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
         <item name="android:windowShowWallpaper">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:textAppearanceMedium">@style/TextAppearance.Muzei.Medium</item>
