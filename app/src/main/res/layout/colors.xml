@@ -40,13 +40,15 @@
                 android:onClick="onColor"
                 android:visibility="invisible"/>
 
-            <View
+            <ImageButton
                 android:id="@+id/teal"
                 android:layout_width="@dimen/color_button_size"
                 android:layout_height="@dimen/color_button_size"
                 android:layout_margin="5dp"
                 android:background="@drawable/teal"
-                android:onClick="onColor"/>
+                android:contentDescription="@string/color_teal"
+                android:onClick="onColor"
+                android:src="@drawable/color_foreground"/>
 
             <View
                 android:id="@+id/silver"
@@ -60,30 +62,35 @@
 
         <TableRow>
 
-            <View
+            <ImageButton
                 android:id="@+id/maroon"
                 android:layout_width="@dimen/color_button_size"
                 android:layout_height="@dimen/color_button_size"
                 android:layout_margin="5dp"
                 android:background="@drawable/maroon"
-                android:onClick="onColor"/>
+                android:contentDescription="@string/color_maroon"
+                android:onClick="onColor"
+                android:src="@drawable/color_foreground"/>
 
-            <View
+            <ImageButton
                 android:id="@+id/black"
                 android:layout_width="@dimen/color_button_size"
                 android:layout_height="@dimen/color_button_size"
                 android:layout_margin="5dp"
                 android:background="@drawable/black"
+                android:contentDescription="@string/color_black"
                 android:onClick="onColor"
-                android:visibility="visible"/>
+                android:src="@drawable/color_foreground"/>
 
-            <View
+            <ImageButton
                 android:id="@+id/green"
                 android:layout_width="@dimen/color_button_size"
                 android:layout_height="@dimen/color_button_size"
                 android:layout_margin="5dp"
                 android:background="@drawable/green"
-                android:onClick="onColor"/>
+                android:contentDescription="@string/color_green"
+                android:onClick="onColor"
+                android:src="@drawable/color_foreground"/>
         </TableRow>
 
         <TableRow>
@@ -97,13 +104,15 @@
                 android:onClick="onColor"
                 android:visibility="invisible"/>
 
-            <View
+            <ImageButton
                 android:id="@+id/navy"
                 android:layout_width="@dimen/color_button_size"
                 android:layout_height="@dimen/color_button_size"
                 android:layout_margin="5dp"
                 android:background="@drawable/navy"
-                android:onClick="onColor"/>
+                android:contentDescription="@string/color_navy"
+                android:onClick="onColor"
+                android:src="@drawable/color_foreground"/>
 
             <View
                 android:id="@+id/purple"

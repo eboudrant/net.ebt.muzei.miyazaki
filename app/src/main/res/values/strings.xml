@@ -3,6 +3,11 @@
     <string name="source_name">Studio Ghibli</string>
     <string name="app_name">Muzei Ghibli</string>
     <string name="image_color">Choose a color</string>
+    <string name="color_teal">Teal</string>
+    <string name="color_maroon">Maroon</string>
+    <string name="color_black">Black</string>
+    <string name="color_green">Green</string>
+    <string name="color_navy">Navy</string>
     <plurals name="match_count">
         <item quantity="one">Using %d artwork</item>
         <item quantity="other">Using %d artworks</item>
