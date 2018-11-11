@@ -1,45 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#22000000"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/muzei_icon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="start"
-            android:contentDescription="@string/app_name"
-            android:padding="10dp"
-            android:src="@mipmap/ic_launcher"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+    <ImageView
+        android:id="@+id/muzei_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="start"
+        android:contentDescription="@string/app_name"
+        android:padding="10dp"
+        android:src="@mipmap/ic_launcher"/>
 
     <include
         android:id="@+id/colors"
         layout="@layout/colors"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-</LinearLayout>
+</FrameLayout>
