@@ -3,4 +3,12 @@
     <string name="source_name">Studio Ghibli</string>
     <string name="app_name">Muzei Ghibli</string>
     <string name="image_color">Choose a color</string>
+    <plurals name="match_count">
+        <item quantity="one">Using %d artwork</item>
+        <item quantity="other">Using %d artworks</item>
+    </plurals>
+    <plurals name="match_count_debug">
+        <item quantity="one">Using %d artwork (%d%%)</item>
+        <item quantity="other">Using %d artworks (%d%%)</item>
+    </plurals>
 </resources>

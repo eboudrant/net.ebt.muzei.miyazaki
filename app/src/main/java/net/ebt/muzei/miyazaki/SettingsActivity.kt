@@ -33,7 +33,7 @@ class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Curs
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor) {
-        val count = data.count.toLong()
+        val count = data.count
         val matches: TextView = findViewById(R.id.matches)
         if (BuildConfig.DEBUG) {
             var percentArtworkWithCaption = 0
@@ -47,9 +47,10 @@ class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Curs
                 percentArtworkWithCaption *= 100
                 percentArtworkWithCaption /= count.toInt()
             }
-            matches.text = "Using $count artworks ($percentArtworkWithCaption%)"
+            matches.text = resources.getQuantityString(R.plurals.match_count_debug, count,
+                    count, percentArtworkWithCaption)
         } else {
-            matches.text = "Using $count artworks"
+            matches.text = resources.getQuantityString(R.plurals.match_count, count, count)
         }
     }
 
