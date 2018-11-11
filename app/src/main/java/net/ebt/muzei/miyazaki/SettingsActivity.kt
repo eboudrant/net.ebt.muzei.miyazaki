@@ -38,6 +38,9 @@ class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Curs
         if (BuildConfig.DEBUG) {
             var percentArtworkWithCaption = 0
             if (count > 0) {
+                // The position of the Cursor isn't reset after rotation
+                // so reset the position before iterating through the Cursor
+                data.moveToPosition(-1)
                 while (data.moveToNext()) {
                     val caption = data.getString(data.getColumnIndex(ProviderContract.Artwork.BYLINE))
                     if (caption != null && !caption.isEmpty()) {
