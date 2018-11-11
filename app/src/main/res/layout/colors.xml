@@ -31,106 +31,88 @@
 
         <TableRow>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <View
+                android:id="@+id/olive"
+                android:layout_width="@dimen/color_button_size"
+                android:layout_height="@dimen/color_button_size"
+                android:layout_margin="5dp"
+                android:background="#FF808000"
+                android:onClick="onColor"
+                android:visibility="invisible"/>
 
-                <View
-                    android:id="@+id/olive"
-                    android:layout_width="@dimen/color_button_size"
-                    android:layout_height="@dimen/color_button_size"
-                    android:layout_margin="5dp"
-                    android:background="#FF808000"
-                    android:onClick="onColor"
-                    android:visibility="invisible"/>
+            <View
+                android:id="@+id/teal"
+                android:layout_width="@dimen/color_button_size"
+                android:layout_height="@dimen/color_button_size"
+                android:layout_margin="5dp"
+                android:background="@drawable/teal"
+                android:onClick="onColor"/>
 
-                <View
-                    android:id="@+id/teal"
-                    android:layout_width="@dimen/color_button_size"
-                    android:layout_height="@dimen/color_button_size"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/teal"
-                    android:onClick="onColor"/>
-
-                <View
-                    android:id="@+id/silver"
-                    android:layout_width="@dimen/color_button_size"
-                    android:layout_height="@dimen/color_button_size"
-                    android:layout_margin="5dp"
-                    android:background="#FFC0C0C0"
-                    android:onClick="onColor"
-                    android:visibility="invisible"/>
-            </LinearLayout>
+            <View
+                android:id="@+id/silver"
+                android:layout_width="@dimen/color_button_size"
+                android:layout_height="@dimen/color_button_size"
+                android:layout_margin="5dp"
+                android:background="#FFC0C0C0"
+                android:onClick="onColor"
+                android:visibility="invisible"/>
         </TableRow>
 
         <TableRow>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <View
+                android:id="@+id/maroon"
+                android:layout_width="@dimen/color_button_size"
+                android:layout_height="@dimen/color_button_size"
+                android:layout_margin="5dp"
+                android:background="@drawable/maroon"
+                android:onClick="onColor"/>
 
-                <View
-                    android:id="@+id/maroon"
-                    android:layout_width="@dimen/color_button_size"
-                    android:layout_height="@dimen/color_button_size"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/maroon"
-                    android:onClick="onColor"/>
+            <View
+                android:id="@+id/black"
+                android:layout_width="@dimen/color_button_size"
+                android:layout_height="@dimen/color_button_size"
+                android:layout_margin="5dp"
+                android:background="@drawable/black"
+                android:onClick="onColor"
+                android:visibility="visible"/>
 
-                <View
-                    android:id="@+id/black"
-                    android:layout_width="@dimen/color_button_size"
-                    android:layout_height="@dimen/color_button_size"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/black"
-                    android:onClick="onColor"
-                    android:visibility="visible"/>
-
-                <View
-                    android:id="@+id/green"
-                    android:layout_width="@dimen/color_button_size"
-                    android:layout_height="@dimen/color_button_size"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/green"
-                    android:onClick="onColor"/>
-            </LinearLayout>
+            <View
+                android:id="@+id/green"
+                android:layout_width="@dimen/color_button_size"
+                android:layout_height="@dimen/color_button_size"
+                android:layout_margin="5dp"
+                android:background="@drawable/green"
+                android:onClick="onColor"/>
         </TableRow>
 
         <TableRow>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <View
+                android:id="@+id/grey"
+                android:layout_width="@dimen/color_button_size"
+                android:layout_height="@dimen/color_button_size"
+                android:layout_margin="5dp"
+                android:background="#FF808080"
+                android:onClick="onColor"
+                android:visibility="invisible"/>
 
-                <View
-                    android:id="@+id/grey"
-                    android:layout_width="@dimen/color_button_size"
-                    android:layout_height="@dimen/color_button_size"
-                    android:layout_margin="5dp"
-                    android:background="#FF808080"
-                    android:onClick="onColor"
-                    android:visibility="invisible"/>
+            <View
+                android:id="@+id/navy"
+                android:layout_width="@dimen/color_button_size"
+                android:layout_height="@dimen/color_button_size"
+                android:layout_margin="5dp"
+                android:background="@drawable/navy"
+                android:onClick="onColor"/>
 
-                <View
-                    android:id="@+id/navy"
-                    android:layout_width="@dimen/color_button_size"
-                    android:layout_height="@dimen/color_button_size"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/navy"
-                    android:onClick="onColor"/>
-
-                <View
-                    android:id="@+id/purple"
-                    android:layout_width="@dimen/color_button_size"
-                    android:layout_height="@dimen/color_button_size"
-                    android:layout_margin="5dp"
-                    android:background="#FF800080"
-                    android:onClick="onColor"
-                    android:visibility="invisible"/>
-            </LinearLayout>
+            <View
+                android:id="@+id/purple"
+                android:layout_width="@dimen/color_button_size"
+                android:layout_height="@dimen/color_button_size"
+                android:layout_margin="5dp"
+                android:background="#FF800080"
+                android:onClick="onColor"
+                android:visibility="invisible"/>
         </TableRow>
 
     </TableLayout>
