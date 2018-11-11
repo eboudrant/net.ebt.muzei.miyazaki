@@ -45,7 +45,7 @@ class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Curs
                     }
                 }
                 percentArtworkWithCaption *= 100
-                percentArtworkWithCaption /= count.toInt()
+                percentArtworkWithCaption /= count
             }
             matches.text = resources.getQuantityString(R.plurals.match_count_debug, count,
                     count, percentArtworkWithCaption)
