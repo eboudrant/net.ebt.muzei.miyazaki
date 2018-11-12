@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/teal"
+        android:layout_width="@dimen/color_button_size"
+        android:layout_height="@dimen/color_button_size"
+        android:layout_margin="2dp"
+        android:background="@drawable/teal"
+        android:contentDescription="@string/color_teal"
+        android:onClick="onColor"
+        android:src="@drawable/color_foreground"
+        app:layout_constraintBottom_toTopOf="@+id/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <ImageButton
+        android:id="@+id/maroon"
+        android:layout_width="@dimen/color_button_size"
+        android:layout_height="@dimen/color_button_size"
+        android:layout_margin="2dp"
+        android:background="@drawable/maroon"
+        android:contentDescription="@string/color_maroon"
+        android:onClick="onColor"
+        android:src="@drawable/color_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/black"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/black"
+        android:layout_width="@dimen/color_button_size"
+        android:layout_height="@dimen/color_button_size"
+        android:layout_margin="2dp"
+        android:background="@drawable/black"
+        android:contentDescription="@string/color_black"
+        android:onClick="onColor"
+        android:src="@drawable/color_foreground"
+        app:layout_constraintBottom_toTopOf="@+id/navy"
+        app:layout_constraintEnd_toStartOf="@+id/green"
+        app:layout_constraintStart_toEndOf="@+id/maroon"
+        app:layout_constraintTop_toBottomOf="@+id/teal"/>
+
+    <ImageButton
+        android:id="@+id/green"
+        android:layout_width="@dimen/color_button_size"
+        android:layout_height="@dimen/color_button_size"
+        android:layout_margin="2dp"
+        android:background="@drawable/green"
+        android:contentDescription="@string/color_green"
+        android:onClick="onColor"
+        android:src="@drawable/color_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/black"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/navy"
+        android:layout_width="@dimen/color_button_size"
+        android:layout_height="@dimen/color_button_size"
+        android:layout_margin="2dp"
+        android:background="@drawable/navy"
+        android:contentDescription="@string/color_navy"
+        android:onClick="onColor"
+        android:src="@drawable/color_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/black"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

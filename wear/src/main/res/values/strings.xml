@@ -1,0 +1,11 @@
+<resources>
+    <string name="color_teal">Teal</string>
+    <string name="color_maroon">Maroon</string>
+    <string name="color_black">Black</string>
+    <string name="color_green">Green</string>
+    <string name="color_navy">Navy</string>
+    <plurals name="match_count">
+        <item quantity="one">Using %d artwork</item>
+        <item quantity="other">Using %d artworks</item>
+    </plurals>
+</resources>
