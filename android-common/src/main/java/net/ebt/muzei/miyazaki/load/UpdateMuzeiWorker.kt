@@ -12,7 +12,7 @@ import com.google.android.apps.muzei.api.provider.Artwork
 import com.google.android.apps.muzei.api.provider.ProviderContract
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import net.ebt.muzei.miyazaki.BuildConfig.GHIBLI_AUTHORITY
+import net.ebt.muzei.miyazaki.common.BuildConfig.GHIBLI_AUTHORITY
 import net.ebt.muzei.miyazaki.database.ArtworkDatabase
 
 class UpdateMuzeiWorker(

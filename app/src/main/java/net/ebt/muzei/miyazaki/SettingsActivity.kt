@@ -10,7 +10,6 @@ import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import com.google.android.apps.muzei.api.provider.ProviderContract
-import net.ebt.muzei.miyazaki.BuildConfig.GHIBLI_AUTHORITY
 import net.ebt.muzei.miyazaki.load.UpdateMuzeiWorker
 
 class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Cursor> {
@@ -28,7 +27,7 @@ class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Curs
 
     override fun onCreateLoader(id: Int, arguments: Bundle?): Loader<Cursor> {
         return CursorLoader(this,
-                ProviderContract.getContentUri(GHIBLI_AUTHORITY),
+                ProviderContract.getContentUri(GhibliArtProvider.AUTHORITY),
                 null, null, null, null)
     }
 

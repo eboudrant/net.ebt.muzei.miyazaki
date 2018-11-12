@@ -1,0 +1,38 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
+
+        def ghibliAuthorityValue = "net.ebt.muzei.miyazaki.ghibli"
+        manifestPlaceholders = [ghibliAuthority: ghibliAuthorityValue]
+        buildConfigField "String", "GHIBLI_AUTHORITY", "\"${ghibliAuthorityValue}\""
+    }
+}
+
+dependencies {
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.4.0"
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+    implementation 'com.squareup.moshi:moshi:1.7.0'
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.7.0'
+    implementation 'androidx.core:core-ktx:1.0.1'
+    api "androidx.room:room-runtime:2.1.0-alpha02"
+    kapt "androidx.room:room-compiler:2.1.0-alpha02"
+    implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha11'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    api 'com.google.android.apps.muzei:muzei-api:3.1.0-alpha01'
+}

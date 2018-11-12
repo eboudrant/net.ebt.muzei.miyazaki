@@ -1,7 +1,4 @@
 <resources>
-    <string name="source_description">The Timeless Beauty Of Studio Ghibli\'s Movies</string>
-    <string name="source_name">Studio Ghibli</string>
-    <string name="app_name">Muzei Ghibli</string>
     <string name="image_color">Choose a color</string>
     <string name="color_teal">Teal</string>
     <string name="color_maroon">Maroon</string>

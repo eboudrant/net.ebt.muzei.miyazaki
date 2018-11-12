@@ -4,9 +4,14 @@ import android.app.SearchManager
 import android.content.Intent
 import com.google.android.apps.muzei.api.provider.Artwork
 import com.google.android.apps.muzei.api.provider.MuzeiArtProvider
+import net.ebt.muzei.miyazaki.common.BuildConfig
 import net.ebt.muzei.miyazaki.load.ArtworkLoadWorker
 
 class GhibliArtProvider : MuzeiArtProvider() {
+    companion object {
+        const val AUTHORITY = BuildConfig.GHIBLI_AUTHORITY
+    }
+
     override fun onLoadRequested(initial: Boolean) {
         val context = context ?: return
         if (initial) {

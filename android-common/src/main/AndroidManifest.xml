@@ -1,0 +1,42 @@
+<manifest
+    package="net.ebt.muzei.miyazaki.common"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <service
+            android:name="net.ebt.muzei.miyazaki.service.MuzeiMiyazakiService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.apps.muzei.api.MuzeiArtSource"/>
+            </intent-filter>
+            <meta-data
+                android:name="replacement"
+                android:value="${ghibliAuthority}"/>
+        </service>
+
+        <provider
+            android:name="net.ebt.muzei.miyazaki.GhibliArtProvider"
+            android:authorities="${ghibliAuthority}"
+            android:description="@string/source_description"
+            android:exported="true"
+            android:label="@string/source_name"
+            android:permission="com.google.android.apps.muzei.api.ACCESS_PROVIDER">
+            <intent-filter>
+                <action android:name="com.google.android.apps.muzei.api.MuzeiArtProvider"/>
+            </intent-filter>
+            <!-- Application modules using this library should implement this class -->
+            <meta-data
+                android:name="settingsActivity"
+                android:value="net.ebt.muzei.miyazaki.SettingsActivity"/>
+        </provider>
+    </application>
+</manifest>

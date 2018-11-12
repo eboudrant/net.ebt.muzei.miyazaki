@@ -17,7 +17,7 @@ import com.squareup.moshi.Types
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.ebt.muzei.miyazaki.Artwork
-import net.ebt.muzei.miyazaki.BuildConfig
+import net.ebt.muzei.miyazaki.common.BuildConfig
 import net.ebt.muzei.miyazaki.database.ArtworkDatabase
 import okio.Okio
 import java.util.concurrent.TimeUnit
