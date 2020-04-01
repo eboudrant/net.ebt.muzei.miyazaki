@@ -40,7 +40,7 @@ internal interface GhibliService {
                     .addConverterFactory(MoshiConverterFactory.create())
                     .build()
 
-            return retrofit.create<GhibliService>(GhibliService::class.java)
+            return retrofit.create(GhibliService::class.java)
         }
 
         internal suspend fun list(context: Context): List<Artwork> {
