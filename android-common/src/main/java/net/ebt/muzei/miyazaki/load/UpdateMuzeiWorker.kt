@@ -52,7 +52,7 @@ class UpdateMuzeiWorker(
         }
     }
 
-    override suspend fun doWork(): Payload {
+    override suspend fun doWork(): Result {
         val sharedPreferences = applicationContext.getSharedPreferences(
                 CURRENT_PREF_NAME, Context.MODE_PRIVATE)
         val artworkList = ArtworkDatabase.getInstance(applicationContext)
@@ -70,6 +70,6 @@ class UpdateMuzeiWorker(
                         .build()
             })
         }
-        return Payload(Result.SUCCESS)
+        return Result.success()
     }
 }

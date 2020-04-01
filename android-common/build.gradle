@@ -30,9 +30,9 @@ dependencies {
     implementation 'com.squareup.moshi:moshi:1.7.0'
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.7.0'
     implementation 'androidx.core:core-ktx:1.0.1'
-    api "androidx.room:room-runtime:2.1.0-alpha02"
-    kapt "androidx.room:room-compiler:2.1.0-alpha02"
-    implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha11'
+    api "androidx.room:room-ktx:2.1.0"
+    kapt "androidx.room:room-compiler:2.1.0"
+    implementation 'androidx.work:work-runtime-ktx:2.0.0'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-    api 'com.google.android.apps.muzei:muzei-api:3.1.0-alpha01'
+    api 'com.google.android.apps.muzei:muzei-api:3.1.0'
 }

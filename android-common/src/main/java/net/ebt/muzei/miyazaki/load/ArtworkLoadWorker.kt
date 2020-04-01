@@ -63,7 +63,7 @@ class ArtworkLoadWorker(
         }
     }
 
-    override suspend fun doWork(): Payload {
+    override suspend fun doWork(): Result {
         val (artworkList, loadedFromNetwork) = try {
             GhibliService.list(applicationContext) to true
         } catch(e: Exception) {
@@ -85,10 +85,10 @@ class ArtworkLoadWorker(
                     }
                 } catch (error: Exception) {
                     Log.e(TAG, "Error loading data.json", error)
-                    return Payload(Result.FAILURE)
+                    return Result.failure()
                 }
             } else {
-                return Payload(Result.RETRY)
+                return Result.retry()
             }
         }
         ArtworkDatabase.getInstance(applicationContext)
@@ -101,6 +101,6 @@ class ArtworkLoadWorker(
                 }
             }
         }
-        return Payload(Result.SUCCESS)
+        return Result.success()
     }
 }
