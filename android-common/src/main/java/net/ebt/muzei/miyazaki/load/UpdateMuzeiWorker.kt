@@ -35,7 +35,7 @@ class UpdateMuzeiWorker(
                     putString(SELECTED_COLOR, color)
                 }
             }
-            enqueueUpdate()
+            enqueueUpdate(context)
         }
 
         fun getCurrentColor(context: Context): String? {
@@ -44,8 +44,8 @@ class UpdateMuzeiWorker(
             return sharedPreferences.getString(SELECTED_COLOR,  null)
         }
 
-        private fun enqueueUpdate() {
-            val workManager = WorkManager.getInstance()
+        private fun enqueueUpdate(context: Context) {
+            val workManager = WorkManager.getInstance(context)
             workManager.enqueueUniqueWork("load", ExistingWorkPolicy.APPEND,
                     OneTimeWorkRequestBuilder<UpdateMuzeiWorker>()
                             .build())

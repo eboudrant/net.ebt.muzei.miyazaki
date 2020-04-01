@@ -15,7 +15,7 @@ class GhibliArtProvider : MuzeiArtProvider() {
     override fun onLoadRequested(initial: Boolean) {
         val context = context ?: return
         if (initial) {
-            ArtworkLoadWorker.enqueueInitialLoad()
+            ArtworkLoadWorker.enqueueInitialLoad(context)
         } else {
             ArtworkLoadWorker.enqueueReload(context)
         }

@@ -12,13 +12,22 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation":
-                                     "$projectDir/schemas".toString()]
+                                     "$projectDir/schemas".toString(),
+                             "room.incremental":"true"]
             }
         }
 
         def ghibliAuthorityValue = "net.ebt.muzei.miyazaki.ghibli"
         manifestPlaceholders = [ghibliAuthority: ghibliAuthorityValue]
         buildConfigField "String", "GHIBLI_AUTHORITY", "\"${ghibliAuthorityValue}\""
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 }
 
@@ -29,10 +38,10 @@ dependencies {
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
     implementation 'com.squareup.moshi:moshi:1.7.0'
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.7.0'
-    implementation 'androidx.core:core-ktx:1.0.1'
-    api "androidx.room:room-ktx:2.1.0"
-    kapt "androidx.room:room-compiler:2.1.0"
-    implementation 'androidx.work:work-runtime-ktx:2.0.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+    api "androidx.room:room-ktx:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
+    implementation 'androidx.work:work-runtime-ktx:2.3.4'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     api 'com.google.android.apps.muzei:muzei-api:3.1.0'
 }

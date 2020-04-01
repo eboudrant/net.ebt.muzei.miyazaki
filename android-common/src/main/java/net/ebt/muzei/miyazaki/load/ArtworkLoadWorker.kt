@@ -33,8 +33,8 @@ class ArtworkLoadWorker(
         private const val LAST_LOADED_MILLIS = "last_loaded_millis"
         private val EXPIRATION = TimeUnit.DAYS.toMillis(15)
 
-        fun enqueueInitialLoad() {
-            val workManager = WorkManager.getInstance()
+        fun enqueueInitialLoad(context: Context) {
+            val workManager = WorkManager.getInstance(context)
             // Kick off an immediate initial load with no network constraints
             workManager.beginUniqueWork("load", ExistingWorkPolicy.REPLACE,
                     OneTimeWorkRequestBuilder<ArtworkLoadWorker>()
@@ -49,7 +49,7 @@ class ArtworkLoadWorker(
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
             val lastLoadedMillis = sharedPreferences.getLong(LAST_LOADED_MILLIS, 0L)
             if (System.currentTimeMillis() - lastLoadedMillis > EXPIRATION || BuildConfig.DEBUG) {
-                val workManager = WorkManager.getInstance()
+                val workManager = WorkManager.getInstance(context)
                 workManager.beginUniqueWork("load", ExistingWorkPolicy.REPLACE,
                         OneTimeWorkRequestBuilder<ArtworkLoadWorker>()
                                 .setConstraints(Constraints.Builder()
