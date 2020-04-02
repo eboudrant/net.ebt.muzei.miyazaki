@@ -1,7 +1,7 @@
 package net.ebt.muzei.miyazaki.load
 
 import android.content.Context
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import net.ebt.muzei.miyazaki.Artwork
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

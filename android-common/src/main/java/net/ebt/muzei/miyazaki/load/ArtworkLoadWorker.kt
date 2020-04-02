@@ -1,9 +1,9 @@
 package net.ebt.muzei.miyazaki.load
 
 import android.content.Context
-import android.preference.PreferenceManager
 import android.util.Log
 import androidx.core.content.edit
+import androidx.preference.PreferenceManager
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.ExistingWorkPolicy
