@@ -61,7 +61,7 @@ class UpdateMuzeiWorker(
         withContext(Dispatchers.IO) {
             val providerClient = ProviderContract.getProviderClient(
                     applicationContext, GHIBLI_AUTHORITY)
-            providerClient.setArtwork(artworkList.map { artwork ->
+            providerClient.setArtwork(artworkList.shuffled().map { artwork ->
                 Artwork.Builder()
                         .token(artwork.hash)
                         .persistentUri(artwork.url.toUri())
