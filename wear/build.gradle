@@ -8,8 +8,8 @@ android {
         applicationId "net.ebt.muzei.miyazaki"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 301
-        versionName "3.0"
+        versionCode 321
+        versionName "3.2"
     }
 
     signingConfigs {
