@@ -35,12 +35,13 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.squareup.retrofit2:retrofit:2.7.1"
     implementation "com.squareup.retrofit2:converter-moshi:2.7.1"
-    implementation 'com.squareup.moshi:moshi:1.7.0'
-    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.7.0'
+    implementation 'com.squareup.moshi:moshi:1.8.0'
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'
     implementation 'androidx.core:core-ktx:1.2.0'
     api "androidx.room:room-ktx:2.2.5"
     kapt "androidx.room:room-compiler:2.2.5"
     implementation 'androidx.work:work-runtime-ktx:2.3.4'
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    //noinspection GradleDependency
+    implementation 'com.squareup.okhttp3:okhttp:3.12.10'
     api 'com.google.android.apps.muzei:muzei-api:3.1.0'
 }
