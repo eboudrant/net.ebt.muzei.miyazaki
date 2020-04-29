@@ -42,7 +42,7 @@ class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Curs
                 data.moveToPosition(-1)
                 while (data.moveToNext()) {
                     val caption = data.getString(data.getColumnIndex(ProviderContract.Artwork.BYLINE))
-                    if (caption != null && !caption.isEmpty()) {
+                    if (caption != null && caption.isNotEmpty()) {
                         percentArtworkWithCaption++
                     }
                 }

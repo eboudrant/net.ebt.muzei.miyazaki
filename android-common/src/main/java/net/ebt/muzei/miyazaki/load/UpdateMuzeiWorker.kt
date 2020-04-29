@@ -35,7 +35,7 @@ class UpdateMuzeiWorker(
                     putString(SELECTED_COLOR, color)
                 }
             }
-            enqueueUpdate()
+            enqueueUpdate(context)
         }
 
         fun getCurrentColor(context: Context): String? {
@@ -44,15 +44,15 @@ class UpdateMuzeiWorker(
             return sharedPreferences.getString(SELECTED_COLOR,  null)
         }
 
-        private fun enqueueUpdate() {
-            val workManager = WorkManager.getInstance()
+        private fun enqueueUpdate(context: Context) {
+            val workManager = WorkManager.getInstance(context)
             workManager.enqueueUniqueWork("load", ExistingWorkPolicy.APPEND,
                     OneTimeWorkRequestBuilder<UpdateMuzeiWorker>()
                             .build())
         }
     }
 
-    override suspend fun doWork(): Payload {
+    override suspend fun doWork(): Result {
         val sharedPreferences = applicationContext.getSharedPreferences(
                 CURRENT_PREF_NAME, Context.MODE_PRIVATE)
         val artworkList = ArtworkDatabase.getInstance(applicationContext)
@@ -61,7 +61,7 @@ class UpdateMuzeiWorker(
         withContext(Dispatchers.IO) {
             val providerClient = ProviderContract.getProviderClient(
                     applicationContext, GHIBLI_AUTHORITY)
-            providerClient.setArtwork(artworkList.map { artwork ->
+            providerClient.setArtwork(artworkList.shuffled().map { artwork ->
                 Artwork.Builder()
                         .token(artwork.hash)
                         .persistentUri(artwork.url.toUri())
@@ -70,6 +70,6 @@ class UpdateMuzeiWorker(
                         .build()
             })
         }
-        return Payload(Result.SUCCESS)
+        return Result.success()
     }
 }

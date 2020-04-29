@@ -1,9 +1,9 @@
 package net.ebt.muzei.miyazaki.load
 
 import android.content.Context
-import android.preference.PreferenceManager
 import android.util.Log
 import androidx.core.content.edit
+import androidx.preference.PreferenceManager
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.ExistingWorkPolicy
@@ -33,8 +33,8 @@ class ArtworkLoadWorker(
         private const val LAST_LOADED_MILLIS = "last_loaded_millis"
         private val EXPIRATION = TimeUnit.DAYS.toMillis(15)
 
-        fun enqueueInitialLoad() {
-            val workManager = WorkManager.getInstance()
+        fun enqueueInitialLoad(context: Context) {
+            val workManager = WorkManager.getInstance(context)
             // Kick off an immediate initial load with no network constraints
             workManager.beginUniqueWork("load", ExistingWorkPolicy.REPLACE,
                     OneTimeWorkRequestBuilder<ArtworkLoadWorker>()
@@ -49,7 +49,7 @@ class ArtworkLoadWorker(
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
             val lastLoadedMillis = sharedPreferences.getLong(LAST_LOADED_MILLIS, 0L)
             if (System.currentTimeMillis() - lastLoadedMillis > EXPIRATION || BuildConfig.DEBUG) {
-                val workManager = WorkManager.getInstance()
+                val workManager = WorkManager.getInstance(context)
                 workManager.beginUniqueWork("load", ExistingWorkPolicy.REPLACE,
                         OneTimeWorkRequestBuilder<ArtworkLoadWorker>()
                                 .setConstraints(Constraints.Builder()
@@ -63,7 +63,7 @@ class ArtworkLoadWorker(
         }
     }
 
-    override suspend fun doWork(): Payload {
+    override suspend fun doWork(): Result {
         val (artworkList, loadedFromNetwork) = try {
             GhibliService.list(applicationContext) to true
         } catch(e: Exception) {
@@ -85,10 +85,10 @@ class ArtworkLoadWorker(
                     }
                 } catch (error: Exception) {
                     Log.e(TAG, "Error loading data.json", error)
-                    return Payload(Result.FAILURE)
+                    return Result.failure()
                 }
             } else {
-                return Payload(Result.RETRY)
+                return Result.retry()
             }
         }
         ArtworkDatabase.getInstance(applicationContext)
@@ -101,6 +101,6 @@ class ArtworkLoadWorker(
                 }
             }
         }
-        return Payload(Result.SUCCESS)
+        return Result.success()
     }
 }

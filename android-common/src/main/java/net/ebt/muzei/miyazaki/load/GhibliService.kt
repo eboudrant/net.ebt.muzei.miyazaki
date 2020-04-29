@@ -1,9 +1,7 @@
 package net.ebt.muzei.miyazaki.load
 
 import android.content.Context
-import android.preference.PreferenceManager
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import kotlinx.coroutines.Deferred
+import androidx.preference.PreferenceManager
 import net.ebt.muzei.miyazaki.Artwork
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -36,20 +34,19 @@ internal interface GhibliService {
             val retrofit = Retrofit.Builder()
                     .baseUrl("https://muzei-ghibli.appspot.com/")
                     .client(okHttpClient)
-                    .addCallAdapterFactory(CoroutineCallAdapterFactory())
                     .addConverterFactory(MoshiConverterFactory.create())
                     .build()
 
-            return retrofit.create<GhibliService>(GhibliService::class.java)
+            return retrofit.create(GhibliService::class.java)
         }
 
         internal suspend fun list(context: Context): List<Artwork> {
-            return createService(context).list.await().artworks
+            return createService(context).list().artworks
         }
     }
 
-    @get:GET("/list?sort=no")
-    val list: Deferred<ArtworkList>
+    @GET("/list?sort=no")
+    suspend fun list(): ArtworkList
 
     data class ArtworkList(val artworks: List<Artwork>)
 }
