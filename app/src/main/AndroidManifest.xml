@@ -5,6 +5,22 @@
 
     <application tools:ignore="GoogleAppIndexingWarning">
 
+        <activity-alias
+            android:name=".LauncherActivity"
+            android:enabled="@bool/enable_launcher"
+            android:targetActivity=".RedirectActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity-alias>
+
+        <activity
+            android:name=".RedirectActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <activity
             android:name=".SettingsActivity"
             android:exported="true"

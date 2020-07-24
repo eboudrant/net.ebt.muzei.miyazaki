@@ -13,4 +13,9 @@
         <item quantity="one">Using %d artwork (%d%%)</item>
         <item quantity="other">Using %d artworks (%d%%)</item>
     </plurals>
+
+    <string name="toast_enable">Select Studio Ghibli in Muzei</string>
+    <string name="toast_enable_source">Select Studio Ghibli from the list of Sources in Muzei</string>
+    <string name="toast_muzei_missing_error">You must install Muzei to use this Source</string>
+    <string name="toast_play_store_missing_error">Could not install Muzei from the Google Play Store</string>
 </resources>

@@ -3,11 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 30
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -44,5 +44,5 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.1.0'
     //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:okhttp:3.12.10'
-    api 'com.google.android.apps.muzei:muzei-api:3.2.0'
+    api 'com.google.android.apps.muzei:muzei-api:3.4.0'
 }
