@@ -19,8 +19,6 @@
 #   public *;
 #}
 
--useuniqueclassmembernames
-
 -keepattributes SourceFile,LineNumberTable
 
 -dontobfuscate
