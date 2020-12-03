@@ -2,6 +2,7 @@ package net.ebt.muzei.miyazaki.load
 
 import android.content.Context
 import androidx.preference.PreferenceManager
+import com.squareup.moshi.JsonClass
 import net.ebt.muzei.miyazaki.Artwork
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -48,5 +49,6 @@ internal interface GhibliService {
     @GET("/list?sort=no")
     suspend fun list(): ArtworkList
 
+    @JsonClass(generateAdapter = true)
     data class ArtworkList(val artworks: List<Artwork>)
 }
