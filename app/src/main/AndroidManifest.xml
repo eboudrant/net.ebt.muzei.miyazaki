@@ -8,6 +8,7 @@
         <activity-alias
             android:name=".LauncherActivity"
             android:enabled="@bool/enable_launcher"
+            android:exported="true"
             android:targetActivity=".RedirectActivity">
 
             <intent-filter>

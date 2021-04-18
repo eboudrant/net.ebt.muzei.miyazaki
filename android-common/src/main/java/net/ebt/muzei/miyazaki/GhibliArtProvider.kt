@@ -1,5 +1,6 @@
 package net.ebt.muzei.miyazaki
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.app.SearchManager
 import android.content.Intent
@@ -22,6 +23,7 @@ class GhibliArtProvider : MuzeiArtProvider() {
         }
     }
 
+    @SuppressLint("InlinedApi")
     override fun getArtworkInfo(artwork: Artwork): PendingIntent? {
         val context = context ?: return null
         val byline = artwork.byline
@@ -32,7 +34,7 @@ class GhibliArtProvider : MuzeiArtProvider() {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
             return PendingIntent.getActivity(context, artwork.id.toInt(), intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT)
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         }
         return null
     }

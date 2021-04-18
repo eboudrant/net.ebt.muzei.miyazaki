@@ -50,6 +50,6 @@ dependencies {
     implementation project(':android-common')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.activity:activity-ktx:1.1.0'
+    implementation 'androidx.activity:activity-ktx:1.2.2'
     implementation 'androidx.loader:loader:1.1.0'
 }
