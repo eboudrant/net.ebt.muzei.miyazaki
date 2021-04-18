@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 30
 
+    buildFeatures {
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "net.ebt.muzei.miyazaki"
         minSdkVersion 19

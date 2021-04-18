@@ -4,12 +4,12 @@ import android.database.Cursor
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import com.google.android.apps.muzei.api.provider.ProviderContract
+import net.ebt.muzei.miyazaki.databinding.SettingsBinding
 import net.ebt.muzei.miyazaki.load.UpdateMuzeiWorker
 
 class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Cursor> {
@@ -18,9 +18,13 @@ class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Curs
         private const val ALPHA_DEACTIVATED = 0.3f
     }
 
+    private val binding by lazy {
+        SettingsBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.settings)
+        setContentView(binding.root)
         updateMatches()
         LoaderManager.getInstance(this).initLoader(0, null, this)
     }
@@ -33,7 +37,6 @@ class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Curs
 
     override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor) {
         val count = data.count
-        val matches: TextView = findViewById(R.id.matches)
         if (BuildConfig.DEBUG) {
             var percentArtworkWithCaption = 0
             if (count > 0) {
@@ -49,10 +52,10 @@ class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Curs
                 percentArtworkWithCaption *= 100
                 percentArtworkWithCaption /= count
             }
-            matches.text = resources.getQuantityString(R.plurals.match_count_debug, count,
+            binding.matches.text = resources.getQuantityString(R.plurals.match_count_debug, count,
                     count, percentArtworkWithCaption)
         } else {
-            matches.text = resources.getQuantityString(R.plurals.match_count, count, count)
+            binding.matches.text = resources.getQuantityString(R.plurals.match_count, count, count)
         }
     }
 
@@ -78,15 +81,15 @@ class SettingsActivity : ComponentActivity(), LoaderManager.LoaderCallbacks<Curs
 
     private fun updateMatches() {
         val color = UpdateMuzeiWorker.getCurrentColor(this)
-        findViewById<View>(R.id.black).alpha = ALPHA_DEACTIVATED
-        findViewById<View>(R.id.maroon).alpha = ALPHA_DEACTIVATED
-        findViewById<View>(R.id.navy).alpha = ALPHA_DEACTIVATED
-        findViewById<View>(R.id.teal).alpha = ALPHA_DEACTIVATED
-        findViewById<View>(R.id.green).alpha = ALPHA_DEACTIVATED
-        if ("black" == color) findViewById<View>(R.id.black).alpha = 1.0f
-        if ("maroon" == color) findViewById<View>(R.id.maroon).alpha = 1.0f
-        if ("navy" == color) findViewById<View>(R.id.navy).alpha = 1.0f
-        if ("teal" == color) findViewById<View>(R.id.teal).alpha = 1.0f
-        if ("green" == color) findViewById<View>(R.id.green).alpha = 1.0f
+        binding.black.alpha = ALPHA_DEACTIVATED
+        binding.maroon.alpha = ALPHA_DEACTIVATED
+        binding.navy.alpha = ALPHA_DEACTIVATED
+        binding.teal.alpha = ALPHA_DEACTIVATED
+        binding.green.alpha = ALPHA_DEACTIVATED
+        if ("black" == color) binding.black.alpha = 1.0f
+        if ("maroon" == color) binding.maroon.alpha = 1.0f
+        if ("navy" == color) binding.navy.alpha = 1.0f
+        if ("teal" == color) binding.teal.alpha = 1.0f
+        if ("green" == color) binding.green.alpha = 1.0f
     }
 }
