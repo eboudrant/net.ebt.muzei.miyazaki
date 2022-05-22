@@ -1,20 +1,16 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.devtools.ksp'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 30
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = ["room.schemaLocation":
-                                     "$projectDir/schemas".toString(),
-                             "room.incremental":"true"]
-            }
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
 
         def ghibliAuthorityValue = "net.ebt.muzei.miyazaki.ghibli"
@@ -22,10 +18,6 @@ android {
         buildConfigField "String", "GHIBLI_AUTHORITY", "\"${ghibliAuthorityValue}\""
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -35,14 +27,13 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
-    implementation 'com.squareup.moshi:moshi:1.11.0'
-    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.11.0'
-    implementation 'androidx.core:core-ktx:1.3.2'
-    api "androidx.room:room-ktx:2.2.6"
-    kapt "androidx.room:room-compiler:2.2.6"
-    implementation 'androidx.work:work-runtime-ktx:2.5.0'
-    implementation 'androidx.preference:preference-ktx:1.1.1'
-    //noinspection GradleDependency
-    implementation 'com.squareup.okhttp3:okhttp:3.12.10'
+    implementation 'com.squareup.moshi:moshi:1.13.0'
+    ksp 'com.squareup.moshi:moshi-kotlin-codegen:1.13.0'
+    implementation 'androidx.core:core-ktx:1.7.0'
+    api "androidx.room:room-ktx:2.4.2"
+    ksp "androidx.room:room-compiler:2.4.2"
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    implementation 'androidx.preference:preference-ktx:1.2.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
     api 'com.google.android.apps.muzei:muzei-api:3.4.0'
 }

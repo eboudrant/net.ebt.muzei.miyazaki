@@ -19,7 +19,8 @@ import kotlinx.coroutines.withContext
 import net.ebt.muzei.miyazaki.Artwork
 import net.ebt.muzei.miyazaki.common.BuildConfig
 import net.ebt.muzei.miyazaki.database.ArtworkDatabase
-import okio.Okio
+import okio.buffer
+import okio.source
 import java.util.concurrent.TimeUnit
 
 class ArtworkLoadWorker(
@@ -74,8 +75,7 @@ class ArtworkLoadWorker(
                 // with our (potentially outdated) local asset
                 try {
                     withContext(Dispatchers.IO) {
-                        Okio.buffer(Okio.source(
-                                applicationContext.resources.assets.open("data.json"))).use { input ->
+                        applicationContext.resources.assets.open("data.json").source().buffer().use { input ->
                             val moshi = Moshi.Builder().build()
                             val listType = Types.newParameterizedType(
                                     List::class.java, Artwork::class.java)
